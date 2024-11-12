@@ -18,6 +18,13 @@ const routes: Routes = [
             ),
     },
     {
+        path: 'brands',
+        loadChildren: () =>
+            import('./modules/brands/brand.module').then(
+                (mod) => mod.BrandModule
+            ),
+    },
+    {
         path: 'auth',
         loadChildren: () =>
             import('./modules/account/auth/auth.module').then(

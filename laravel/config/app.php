@@ -186,6 +186,7 @@ return [
         // App\Modules\Banners\Providers\BannerServiceProvider::class,
         App\Modules\ModuleGenerator\ModuleGeneratorServiceProvider::class,
         App\Modules\Seos\Providers\SeoServiceProvider::class,
+        App\Modules\Brands\Providers\BrandServiceProvider::class,
     ],
 
     /*
