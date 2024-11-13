@@ -7,10 +7,7 @@ import { DashboardService } from './dashboard.service';
 import { HelperService } from 'src/app/base/helper.service';
 import { Ionic4DatepickerModalComponent } from 'src/app/components/datepicker/ionic4-datepicker-modal/ionic4-datepicker-modal.component';
 import { LegendPosition } from '@swimlane/ngx-charts';
-import * as Moment from 'moment';
-import { extendMoment } from 'moment-range';
-
-const moment = extendMoment(Moment);
+import * as moment from 'moment';
 
 @Component({
     selector: 'app-dashboard',

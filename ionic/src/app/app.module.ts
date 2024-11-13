@@ -4,7 +4,6 @@ import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule } from '@angular/common/http';
 
 import { IonicModule,} from '@ionic/angular';
-import { DragulaModule } from 'ng2-dragula';
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { NgxMaskModule, IConfig} from 'ngx-mask'
@@ -41,7 +40,6 @@ registerLocaleData(ptBr);
         HttpClientModule,
         FontAwesomeModule,
         CKEditorModule,
-        DragulaModule.forRoot(),
         NgxMaskModule.forRoot(),
     ],
     providers: [

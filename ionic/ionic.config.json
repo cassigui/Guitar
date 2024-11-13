@@ -1,5 +1,6 @@
 {
   "name": "ionic",
   "integrations": {},
-  "type": "angular"
+  "type": "angular",
+  "livereload" : true
 }

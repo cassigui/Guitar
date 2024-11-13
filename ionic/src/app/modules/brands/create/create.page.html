@@ -4,7 +4,7 @@
             <ion-back-button mode="ios" text="" icon="chevron-back" [routerLink]="['/brands']">
             </ion-back-button>
         </ion-buttons>
-        <ion-title>{{ editing ? 'Editando' : 'Nova' }} Marcas </ion-title>
+        <ion-title>{{ editing ? 'Editando' : 'Nova' }} Marca </ion-title>
     </ion-toolbar>
 </ion-header>
 
@@ -14,24 +14,10 @@
         <ion-card class="m0" color="white" mode="ios">
             <ion-card-content>
 
-                <ion-row *ngIf="!editing">
-                    <ion-col size="12">
-                        <ion-label class="fw-600" color="medium">Slug identificador (unique and lowercase)*</ion-label>
-                        <ion-input type="text" class="input-light" [(ngModel)]="brand.slug"></ion-input>
-                    </ion-col>
-                </ion-row>
-
                 <ion-row>
                     <ion-col size="12">
-                        <ion-label class="fw-600" color="medium">Título*</ion-label>
-                        <ion-input type="text" class="input-light" [(ngModel)]="brand.title"></ion-input>
-                    </ion-col>
-                </ion-row>
-
-                <ion-row>
-                    <ion-col size="12">
-                        <ion-label class="fw-600" color="medium">Descrição*</ion-label>
-                        <ion-textarea type="text" class="input-light" [(ngModel)]="brand.description"></ion-textarea>
+                        <ion-label class="fw-600" color="medium">Nome*</ion-label>
+                        <ion-input type="text" class="input-light" [(ngModel)]="brand.name"></ion-input>
                     </ion-col>
                 </ion-row>
 
@@ -46,7 +32,7 @@
                     <ion-row>
 
                         <ion-col size="12" *ngIf="!brand.image.path && !brand.image.base64">
-                            <ion-label class="fw-600" color="medium">Selecione uma imagem (400x400)*</ion-label>
+                            <ion-label class="fw-600" color="medium">Selecione uma imagem (600x330)*</ion-label>
                             <input type="file" class="bg-light" (change)="fileChangeEvent($event)" />
                         </ion-col>
 
@@ -57,7 +43,11 @@
                         </ion-col>
                         <ion-col size="7">
                             <div *ngIf="imageChangedEvent && imageChangedEvent.isTrusted == true">
-                                <image-cropper [imageChangedEvent]="imageChangedEvent" [maintainAspectRatio]="true" [aspectRatio]="3.5" format="png" [resizeToWidth]="1400" [resizeToHeight]="400" (imageCropped)="imageCropped($event)" (imageLoaded)="imageLoaded()" (cropperReady)="cropperReady()" (loadImageFailed)="loadImageFailed()"></image-cropper>
+                                <image-cropper [imageChangedEvent]="imageChangedEvent" [maintainAspectRatio]="true"
+                                    [aspectRatio]="1.8" format="png" [resizeToWidth]="600" [resizeToHeight]="330"
+                                    (imageCropped)="imageCropped($event)" (imageLoaded)="imageLoaded()"
+                                    (cropperReady)="cropperReady()"
+                                    (loadImageFailed)="loadImageFailed()"></image-cropper>
                                 <ion-button color="primary" (click)="pushImage()">Usar imagem</ion-button>
                             </div>
                         </ion-col>
@@ -82,8 +72,9 @@
                     <ion-row>
                         <ion-col *ngIf="!brand.image.path && !brand.image.base64">Não há imagem cadastrada.</ion-col>
                         <ion-col *ngIf="brand.image.base64 || brand.image.path" size="3" size-md="2">
-                            <img [src]="brand.image.base64 || url_s3 + get_thumb(brand.image, 'thumb_')" />
-                            <ion-button class="m0" color="danger" expand="full" size="small" (click)="removeImage(brand.image, 1, $event)">
+                            <img [src]="brand.image.base64 || url_s3 + brand.image.path" />
+                            <ion-button class="m0" color="danger" expand="full" size="small"
+                                (click)="removeImage(brand.image, 1, $event)">
                                 <ion-icon slot="start" size="small" name="trash"></ion-icon> remover
                             </ion-button>
                         </ion-col>
@@ -92,7 +83,7 @@
             </ion-card>
         </ion-col>
     </ion-row>
-    
+
 
     <ion-row class="mt-20">
         <ion-col size="12" size-sm="4">
