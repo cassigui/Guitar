@@ -4,13 +4,26 @@ namespace App\Modules\Brands;
 
 use Illuminate\Support\Facades\DB;
 use App\Modules\Base\Services\ApiService;
+use Illuminate\Support\Str;
+use App\Modules\Images\ImageService;
 
 class BrandService
-{
-    public function __construct(Brand $model)
+{   
+
+    public function __construct(Brand $model, ImageService $image_service)
     {
         $this->model = $model;
         $this->api = new ApiService($this->model, $this->getCustomFilters(), $this->getCustomSorts());
+        $this->image_service = $image_service;
+
+        $this->thumbs = [
+            // [
+            //     'prefix' => 'thumb_',
+            //     'width'  => 76,
+            //     'height' => 40,
+            // ],
+        ];
+
     }
 
     protected function getCustomFilters()
@@ -32,7 +45,12 @@ class BrandService
         try {
             DB::beginTransaction();
 
+            $data['slug'] = Str::slug($data['name'], '-');
             $model = $this->model->create($data);
+
+            if (isset($data['image'])) {
+                $this->store_image($data['image'], $model->id);
+            }
 
             DB::commit();
         } catch (\Throwable $e) {
@@ -49,9 +67,15 @@ class BrandService
         try {
             DB::beginTransaction();
 
+            
+            $data['slug'] = Str::slug($data['name'], '-');
             $model = $this->model->findOrFail($id);
 
             $model->update($data);
+
+            if (isset($data['image'])) {
+                $this->store_image($data['image'], $model->id);
+            }
 
             DB::commit();
         } catch (\Throwable $e) {
@@ -61,6 +85,18 @@ class BrandService
 
 
         return $model;
+    }
+
+    public function store_image(array $data, int $model_id)
+    {
+        if ($data['base64']) {
+            $data['imageable_id']   = $model_id;
+            $data['imageable_type'] = 'brands';
+            $data['order']          = 0;
+            $data['thumbs']         = $this->thumbs;
+
+            $this->image_service->store($data);
+        }
     }
 
     public function destroy($id)

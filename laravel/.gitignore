@@ -8,6 +8,8 @@
 /.vagrant
 laravel/config/filesystems.php
 
+filesystems.php
+
 Homestead.json
 Homestead.yaml
 npm-debug.log
