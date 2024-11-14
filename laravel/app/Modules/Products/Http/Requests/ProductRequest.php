@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Modules\Brands\Http\Requests;
+namespace App\Modules\Products\Http\Requests;
 
 use App\Modules\Base\BaseRequest;
 
-class BrandRequest extends BaseRequest
+class ProductRequest extends BaseRequest
 {
     public function authorize()
     {
@@ -14,14 +14,14 @@ class BrandRequest extends BaseRequest
     public function rules()
     {
         return [
-           'name' => 'required'
+            //
         ];
     }
 
     public function attributeNames()
     {
         return [
-            'name' => 'Nome'
+            //
         ];
     }
 

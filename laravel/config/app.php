@@ -187,6 +187,7 @@ return [
         App\Modules\ModuleGenerator\ModuleGeneratorServiceProvider::class,
         App\Modules\Seos\Providers\SeoServiceProvider::class,
         App\Modules\Brands\Providers\BrandServiceProvider::class,
+        App\Modules\Categories\Providers\CategoryServiceProvider::class,
     ],
 
     /*

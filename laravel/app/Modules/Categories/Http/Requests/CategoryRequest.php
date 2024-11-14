@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Modules\Brands\Http\Requests;
+namespace App\Modules\Categories\Http\Requests;
 
 use App\Modules\Base\BaseRequest;
 
-class BrandRequest extends BaseRequest
+class CategoryRequest extends BaseRequest
 {
     public function authorize()
     {
@@ -14,7 +14,7 @@ class BrandRequest extends BaseRequest
     public function rules()
     {
         return [
-           'name' => 'required'
+            "name" => "required"
         ];
     }
 

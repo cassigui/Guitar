@@ -32,6 +32,13 @@ const routes: Routes = [
             ),
     },
     {
+        path: 'categories',
+        loadChildren: () =>
+            import('./modules/categories/category.module').then(
+                (mod) => mod.CategoryModule
+            ),
+    },
+    {
         path: 'configs',
         loadChildren: () =>
             import('./modules/configs/configs.module').then(
