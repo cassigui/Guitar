@@ -189,6 +189,7 @@ return [
         App\Modules\Brands\Providers\BrandServiceProvider::class,
         App\Modules\Categories\Providers\CategoryServiceProvider::class,
         App\Modules\Products\Providers\ProductServiceProvider::class,
+        App\Modules\Banners\Providers\BannerServiceProvider::class,
     ],
 
     /*

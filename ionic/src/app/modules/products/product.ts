@@ -48,7 +48,7 @@ export class Product extends Serializable {
             promo_price: this.promo_price,
             description: this.description,
             brand_id: this.brand_id,
-            image: this.image, 
+            image: this.image,
             images: this.images,
             categories: this.categories
         }

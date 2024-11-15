@@ -39,6 +39,13 @@ const routes: Routes = [
             ),
     },
     {
+        path: 'banners',
+        loadChildren: () =>
+            import('./modules/banners/banner.module').then(
+                (mod) => mod.BannerModule
+            ),
+    },
+    {
         path: 'configs',
         loadChildren: () =>
             import('./modules/configs/configs.module').then(

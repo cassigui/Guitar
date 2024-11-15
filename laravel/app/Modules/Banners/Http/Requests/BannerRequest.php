@@ -14,14 +14,20 @@ class BannerRequest extends BaseRequest
     public function rules()
     {
         return [
-            //
+            'title' => 'required',
+            'description' => 'required',
+            'button_cta' => 'required',
+            'link' => 'required'
         ];
     }
 
     public function attributeNames()
     {
         return [
-            //
+            'title' => 'Titulo',
+            'description' => 'Descrição',
+            'button_cta' => 'Botão de Ação',
+            'link' => 'Link'
         ];
     }
 

@@ -4,7 +4,7 @@
             <ion-back-button mode="ios" text="" icon="chevron-back" [routerLink]="['/banners']">
             </ion-back-button>
         </ion-buttons>
-        <ion-title (click)="debug()">{{ editing ? 'Editando' : 'Novo' }} Produto </ion-title>
+        <ion-title (click)="debug()">{{ editing ? 'Editando' : 'Nova' }} Faixa </ion-title>
     </ion-toolbar>
 </ion-header>
 
@@ -16,58 +16,26 @@
 
                 <ion-row>
                     <ion-col size="12">
-                        <ion-label class="fw-600" color="medium">Nome*</ion-label>
-                        <ion-input type="text" class="input-light" [(ngModel)]="banner.name"></ion-input>
+                        <ion-label class="fw-600" color="medium">Título*</ion-label>
+                        <ion-input type="text" class="input-light" [(ngModel)]="banner.title"></ion-input>
                     </ion-col>
                 </ion-row>
 
                 <ion-row>
                     <ion-col size="12" size-md="6">
-                        <ion-label class="fw-600" color="medium">Preço*</ion-label>
-                        <input type="text" class="input-light" [(ngModel)]="banner.price" currencyMask />
-                    </ion-col>
-                    <ion-col size="12" size-md="6">
-                        <ion-label class="fw-600" color="medium">Valor Promocional</ion-label>
-                        <input type="text" class="input-light" [(ngModel)]="banner.promo_price" currencyMask />
-                    </ion-col>
-                </ion-row>
-
-                <ion-row>
-                    <ion-col size="12" size-sm="6">
-
-                        <ion-label class="fw-600" color="medium">Marca*</ion-label>
-                        <div class="input-light" (click)="selectBrand()">
-                            <span *ngIf="banner.brand?.id">
-                                {{ banner.brand.name }}
-                            </span>
-                            <span *ngIf="!banner.brand?.id">
-                                Selecionar...
-                            </span>
-                        </div>
-                    </ion-col>
-                </ion-row>
-
-                <ion-row>
-                    <ion-col size="12" size-sm="6">
-
-                        <ion-label class="fw-600" color="medium">Categorias*</ion-label>
-                        <div class="input-light" (click)="selectCategories()">
-                            <span>
-                                Selecionar Categorias...
-                            </span>
-                        </div>
-                    </ion-col>
-                    <ion-col size="12">
-                        <ion-badge class="mr-5" *ngFor="let category of this.banner.categories" color="medium">{{
-                            category.name }}</ion-badge>
-                    </ion-col>
-                </ion-row>
-
-                <ion-row>
-                    <ion-col size="12">
                         <ion-label class="fw-600" color="medium">Descrição*</ion-label>
-                        <ion-textarea rows="6" type="text" class="input-light"
-                            [(ngModel)]="banner.description"></ion-textarea>
+                        <ion-input type="text" class="input-light" [(ngModel)]="banner.description"></ion-input>
+                    </ion-col>
+                    <ion-col size="12" size-md="6">
+                        <ion-label class="fw-600" color="medium">Botão de ação</ion-label>
+                        <ion-input type="text" class="input-light" [(ngModel)]="banner.button_cta"></ion-input>
+                    </ion-col>
+                </ion-row>
+
+                <ion-row>
+                    <ion-col size="12">
+                        <ion-label class="fw-600" color="medium">Link*</ion-label>
+                        <ion-input type="text" class="input-light" [(ngModel)]="banner.link"></ion-input>
                     </ion-col>
                 </ion-row>
 
@@ -82,7 +50,7 @@
                     <ion-row>
 
                         <ion-col size="12" *ngIf="!banner.image.path && !banner.image.base64">
-                            <ion-label class="fw-600" color="medium">Selecione uma imagem (700x700)</ion-label>
+                            <ion-label class="fw-600" color="medium">Selecione uma imagem (1920x900)</ion-label>
                             <input type="file" class="bg-light" (change)="fileChangeEvent($event)" />
                         </ion-col>
 
@@ -94,7 +62,7 @@
                         <ion-col size="7">
                             <div *ngIf="imageChangedEvent && imageChangedEvent.isTrusted == true">
                                 <image-cropper [imageChangedEvent]="imageChangedEvent" [maintainAspectRatio]="true"
-                                    [aspectRatio]="1" format="png" [resizeToWidth]="700" [resizeToHeight]="700"
+                                    [aspectRatio]="2.13" format="png" [resizeToWidth]="1920" [resizeToHeight]="900"
                                     (imageCropped)="imageCropped($event)" (imageLoaded)="imageLoaded()"
                                     (cropperReady)="cropperReady()"
                                     (loadImageFailed)="loadImageFailed()"></image-cropper>

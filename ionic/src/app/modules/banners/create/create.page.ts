@@ -29,9 +29,6 @@ export class CreatePage implements OnInit {
     loading: boolean = false;
     editing: boolean = false;
 
-    brands: Brand[] = [];
-    categories: Category[] = [];
-
     imageChangedEvent: any = '';
     croppedImage: any = '';
 
@@ -61,13 +58,11 @@ export class CreatePage implements OnInit {
             this.editing = true;
             this.get();
         }
-        this.getBrands();
-        this.getCategories();
     }
 
     get() {
-        this.ProductService.find(['images', 'brand', "categories"], { id: this.id }).then(
-            async (data: any) => {
+        this.ProductService.find(['images'], { id: this.id }).then(
+            async (data: any) => { 
                 this.banner = new Banner(data.banner);
             },
             (error: any) => {
@@ -77,12 +72,7 @@ export class CreatePage implements OnInit {
     }
 
     save() {
-
-        if (parseFloat(this.banner.promo_price) >= parseFloat(this.banner.price)) {
-            this.helperService.toast('secondary', "O preço promocional deve ser menor que o preço do produto");
-            return;
-        }
-
+        
         this.helperService.loading('Salvando');
 
         if (this.banner.id > 0) {
@@ -126,71 +116,6 @@ export class CreatePage implements OnInit {
                 this.helperService.responseErrors(error);
             }
         );
-    }
-
-    getBrands() {
-        this.brandService.get([]).then(
-            async (data: any) => {
-                this.brands = []
-                this.brands = data.brands.map(brand => new Brand(brand));
-            },
-            (error: any) => {
-                this.helperService.responseErrors(error);
-            }
-        );
-    }
-
-    getCategories() {
-        this.categoryService.get([]).then(
-            async (data: any) => {
-                console.log(data)
-                this.categories = []
-                this.categories = data.categories.map(category => new Category(category));
-            },
-            (error: any) => {
-                this.helperService.responseErrors(error);
-            }
-        );
-    }
-
-    //Select Brand
-    async selectBrand() {
-        const modal = await this.modalController.create({
-            component: SelectComponent,
-            componentProps: {
-                title: 'Marcas',
-                options: this.brands
-            }
-        });
-
-        await modal.present();
-
-        const { data } = await modal.onWillDismiss();
-
-        if (data) {
-            this.banner.brand = new Brand(data);
-            this.banner.brand_id = this.banner.brand.id;
-        }
-    }
-
-    //Select Categories
-    async selectCategories() {
-        const modal = await this.modalController.create({
-            component: SelectMultipleComponent,
-            componentProps: {
-                title: 'Categorias',
-                options: this.categories,
-                selecteds: this.banner.categories
-            }
-        });
-
-        await modal.present();
-
-        const { data } = await modal.onWillDismiss();
-
-        if (data) {
-            this.banner.categories = this.categories.filter(category => data.includes(category.id));
-        }
     }
 
     //Image

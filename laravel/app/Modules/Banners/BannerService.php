@@ -2,15 +2,27 @@
 
 namespace App\Modules\Banners;
 
-use Illuminate\Support\Facades\DB;
+use App\Modules\Banners\Banner;
 use App\Modules\Base\Services\ApiService;
+use App\Modules\Images\ImageService;
+use Illuminate\Support\Facades\DB;
 
 class BannerService
 {
-    public function __construct(Banner $model)
+    public function __construct(Banner $model, ImageService $image_service)
     {
         $this->model = $model;
         $this->api = new ApiService($this->model, $this->getCustomFilters(), $this->getCustomSorts());
+        $this->image_service = $image_service;
+
+        $this->thumbs = [
+            [
+                'prefix' => 'thumb_',
+                'width' => 400,
+                'height' => 400,
+            ],
+        ];
+        
     }
 
     protected function getCustomFilters()
@@ -30,9 +42,15 @@ class BannerService
     public function store(array $data)
     {
         try {
+            info($data);
+
             DB::beginTransaction();
 
             $model = $this->model->create($data);
+
+            if (isset($data['images']) && count($data['images']) > 0) {
+                $this->store_images($data['images'], $model->id);
+            }
 
             DB::commit();
         } catch (\Throwable $e) {
@@ -40,8 +58,21 @@ class BannerService
             throw $e;
         }
 
-
         return $model;
+    }
+
+    public function store_images(array $images, int $model_id)
+    {
+        foreach ($images as $image) {
+            if ($image['base64']) {
+                $image['imageable_id'] = $model_id;
+                $image['imageable_type'] = 'banners';
+                $image['order'] = 0;
+                $image['thumbs'] = $this->thumbs;
+
+                $this->image_service->store($image);
+            }
+        }
     }
 
     public function update(array $data, $id)
@@ -50,15 +81,17 @@ class BannerService
             DB::beginTransaction();
 
             $model = $this->model->findOrFail($id);
-
             $model->update($data);
+
+            if (isset($data['images']) && count($data['images']) > 0) {
+                $this->store_images($data['images'], $model->id);
+            }
 
             DB::commit();
         } catch (\Throwable $e) {
             DB::rollback();
             throw $e;
         }
-
 
         return $model;
     }
@@ -78,7 +111,6 @@ class BannerService
             throw $e;
         }
 
-
         return true;
     }
 
@@ -94,7 +126,6 @@ class BannerService
             DB::rollback();
             throw $e;
         }
-
 
         return true;
     }
