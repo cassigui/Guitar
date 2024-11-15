@@ -83,14 +83,4 @@ class BannerController extends Controller
             'restore' => 'restore',
         ]);
     }
-
-    public function reorder(Request $request)
-    {
-        $this->banner_service->reorder($request->except('token'));
-
-        return response()->json([
-            'error'   => false,
-            'message' => __('wf.banners::toasts.reorder'),
-        ]);
-    }
 }

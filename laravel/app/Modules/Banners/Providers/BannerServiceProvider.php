@@ -12,16 +12,12 @@ class BannerServiceProvider extends ServiceProvider
     {
         $this->loadTranslationsFrom(__DIR__ . '/../resources/lang', 'wf.banners');
 
-        Route::middleware('web')
-            //->middleware('auth')
+        Route::middleware(['web', 'auth'])
             ->prefix('sistema')
-            ->namespace('App\Modules\Banners\Http\Controllers')
             ->group(__DIR__ . '/../routes/web.php');
 
-        Route::middleware('api')
-            //->middleware('auth')
+        Route::middleware(['api', 'jwt.auth', 'jwt.refresh'])
             ->prefix('api')
-            ->namespace('App\Modules\Banners\Http\Controllers')
             ->group(__DIR__ . '/../routes/api.php');
 
         Relation::morphMap([

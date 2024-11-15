@@ -188,6 +188,7 @@ return [
         App\Modules\Seos\Providers\SeoServiceProvider::class,
         App\Modules\Brands\Providers\BrandServiceProvider::class,
         App\Modules\Categories\Providers\CategoryServiceProvider::class,
+        App\Modules\Products\Providers\ProductServiceProvider::class,
     ],
 
     /*

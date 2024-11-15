@@ -1,18 +1,19 @@
 <?php
 
-namespace App\Modules\Brands;
+namespace App\Modules\Banners;
 
-use App\Modules\Brands\Brand;
+use App\Modules\Banners\Banner;
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Illuminate\Support\Str;
 
-class BrandFactory extends Factory
+class BannerFactory extends Factory
 {
     /**
      * The name of the factory's corresponding model.
      *
      * @var string
      */
-    protected $model = Brand::class;
+    protected $model = Banner::class;
 
     /**
      * Define the model's default state.

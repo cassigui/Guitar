@@ -2,13 +2,13 @@
 
 namespace App\Modules\Brands;
 
-use Illuminate\Support\Facades\DB;
 use App\Modules\Base\Services\ApiService;
-use Illuminate\Support\Str;
 use App\Modules\Images\ImageService;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Str;
 
 class BrandService
-{   
+{
 
     public function __construct(Brand $model, ImageService $image_service)
     {
@@ -58,7 +58,6 @@ class BrandService
             throw $e;
         }
 
-
         return $model;
     }
 
@@ -67,7 +66,6 @@ class BrandService
         try {
             DB::beginTransaction();
 
-            
             $data['slug'] = Str::slug($data['name'], '-');
             $model = $this->model->findOrFail($id);
 
@@ -83,17 +81,16 @@ class BrandService
             throw $e;
         }
 
-
         return $model;
     }
 
     public function store_image(array $data, int $model_id)
     {
         if ($data['base64']) {
-            $data['imageable_id']   = $model_id;
+            $data['imageable_id'] = $model_id;
             $data['imageable_type'] = 'brands';
-            $data['order']          = 0;
-            $data['thumbs']         = $this->thumbs;
+            $data['order'] = 0;
+            $data['thumbs'] = $this->thumbs;
 
             $this->image_service->store($data);
         }
@@ -114,7 +111,6 @@ class BrandService
             throw $e;
         }
 
-
         return true;
     }
 
@@ -130,7 +126,6 @@ class BrandService
             DB::rollback();
             throw $e;
         }
-
 
         return true;
     }

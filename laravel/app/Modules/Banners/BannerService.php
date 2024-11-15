@@ -2,25 +2,15 @@
 
 namespace App\Modules\Banners;
 
-use App\Modules\Images\ImageService;
 use Illuminate\Support\Facades\DB;
 use App\Modules\Base\Services\ApiService;
 
 class BannerService
 {
-    public function __construct(Banner $model, ImageService $image_service)
+    public function __construct(Banner $model)
     {
-        $this->model         = $model;
-        $this->image_service = $image_service;
-        $this->api           = new ApiService($this->model, $this->getCustomFilters(), $this->getCustomSorts());
-
-        $this->thumbs = [
-            [
-                'prefix' => 'thumb_',
-                'width'  => 170,
-                'height' => 46,
-            ],
-        ];
+        $this->model = $model;
+        $this->api = new ApiService($this->model, $this->getCustomFilters(), $this->getCustomSorts());
     }
 
     protected function getCustomFilters()
@@ -44,10 +34,6 @@ class BannerService
 
             $model = $this->model->create($data);
 
-            if (isset($data['image'])) {
-                $this->store_image($data['image'], $model->id);
-            }
-
             DB::commit();
         } catch (\Throwable $e) {
             DB::rollback();
@@ -67,10 +53,6 @@ class BannerService
 
             $model->update($data);
 
-            if (isset($data['image'])) {
-                $this->store_image($data['image'], $model->id);
-            }
-
             DB::commit();
         } catch (\Throwable $e) {
             DB::rollback();
@@ -81,24 +63,14 @@ class BannerService
         return $model;
     }
 
-    public function store_image(array $data, int $banner_id)
-    {
-        if ($data['base64']) {
-            $data['imageable_id']   = $banner_id;
-            $data['imageable_type'] = 'banners';
-            $data['order']          = 0;
-            $data['thumbs']         = $this->thumbs;
-
-            $this->image_service->store($data);
-        }
-    }
-
     public function destroy($id)
     {
         try {
             DB::beginTransaction();
 
-            $this->model->findOrFail($id)->delete();
+            $model = $this->model->findOrFail($id);
+
+            $model->delete();
 
             DB::commit();
         } catch (\Throwable $e) {
@@ -106,24 +78,6 @@ class BannerService
             throw $e;
         }
 
-
-        return true;
-    }
-
-    public function reorder(array $data)
-    {
-        try {
-            DB::beginTransaction();
-
-            foreach ($data as $datum) {
-                $this->model->where('id', $datum['id'])->update(['order' => $datum['order']]);
-            }
-
-            DB::commit();
-        } catch (\Throwable $th) {
-            DB::rollBack();
-            throw $th;
-        }
 
         return true;
     }

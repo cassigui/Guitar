@@ -14,14 +14,14 @@ class BannerRequest extends BaseRequest
     public function rules()
     {
         return [
-            'active' => 'required',
+            //
         ];
     }
 
     public function attributeNames()
     {
         return [
-            'active' => 'Ativo'
+            //
         ];
     }
 

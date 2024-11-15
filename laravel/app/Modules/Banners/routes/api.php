@@ -1,8 +1,9 @@
 <?php
 
-Route::get('banners/get', 'BannerController@get')             ->name('banners.get');
-Route::get('banners/find', 'BannerController@find')           ->name('banners.find');
-Route::get('banners/paginate', 'BannerController@paginate')   ->name('banners.paginate');
-Route::put('banners/{id}/restore', 'BannerController@restore')->name('banners.restore');
-Route::put('banners/reorder', 'BannerController@reorder')     ->name('banners.reorder');
-Route::resource('banners', 'BannerController');                     //banners resource
+use App\Modules\Banners\Http\Controllers\BannerController;
+
+Route::get('banners/get', [BannerController::class, 'get']);
+Route::get('banners/find', [BannerController::class, 'find']);
+Route::get('banners/paginate', [BannerController::class, 'paginate']);
+Route::put('banners/{id}/restore', [BannerController::class, 'restore']);
+Route::resource('banners', BannerController::class);

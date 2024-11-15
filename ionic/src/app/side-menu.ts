@@ -8,8 +8,10 @@ declare interface RouteInfo {
 
 export const MenuItems: RouteInfo[] = [
     {category: 'dashboard',path: '/dashboard',title: 'Dashboard',icon: 'tachometer-alt',class: '',},
-    {category: 'brands',path: '/brands',title: 'Marcas',icon: 'tachometer-alt',class: '',},
+    {category: 'brands',path: '/brands',title: 'Marcas',icon: 'copyright',class: '',},
     {category: 'categories',path: '/categories',title: 'Categorias',icon: 'list',class: '',},
+    {category: 'products',path: '/products',title: 'Produtos',icon: 'guitar',class: '',},
+    {category: 'banners',path: '/banners',title: 'Banner',icon: 'guitar',class: 'image',},
 
     {category: '',path: '',title: 'Geral', icon: '',class: ''},
     {category: 'auditings',path: '/auditings',title: 'Auditoria',icon: 'book',class: '',},

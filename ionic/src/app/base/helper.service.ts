@@ -43,7 +43,7 @@ export class HelperService {
         }
     }
 
-    async toast(color: string, message: string, duration: number = 2000, position: any = 'top') {
+    async toast(color: string, message: string, duration: number = 3000, position: any = 'top') {
         const toast = await this.toastr.create({
             message: message,
             duration: duration,

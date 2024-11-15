@@ -1,0 +1,153 @@
+<ion-header>
+    <ion-toolbar mode="ios">
+        <ion-buttons slot="start">
+            <ion-back-button mode="ios" text="" icon="chevron-back" [routerLink]="['/products']">
+            </ion-back-button>
+        </ion-buttons>
+        <ion-title (click)="debug()">{{ editing ? 'Editando' : 'Novo' }} Produto </ion-title>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+
+    <ion-col class="ion-no-padding">
+        <ion-card class="m0" color="white" mode="ios">
+            <ion-card-content>
+
+                <ion-row>
+                    <ion-col size="12">
+                        <ion-label class="fw-600" color="medium">Nome*</ion-label>
+                        <ion-input type="text" class="input-light" [(ngModel)]="product.name"></ion-input>
+                    </ion-col>
+                </ion-row>
+
+                <ion-row>
+                    <ion-col size="12" size-md="6">
+                        <ion-label class="fw-600" color="medium">Preço*</ion-label>
+                        <input type="text" class="input-light" [(ngModel)]="product.price" currencyMask />
+                    </ion-col>
+                    <ion-col size="12" size-md="6">
+                        <ion-label class="fw-600" color="medium">Valor Promocional</ion-label>
+                        <input type="text" class="input-light" [(ngModel)]="product.promo_price" currencyMask />
+                    </ion-col>
+                </ion-row>
+
+                <ion-row>
+                    <ion-col size="12" size-sm="6">
+
+                        <ion-label class="fw-600" color="medium">Marca*</ion-label>
+                        <div class="input-light" (click)="selectBrand()">
+                            <span *ngIf="product.brand?.id">
+                                {{ product.brand.name }}
+                            </span>
+                            <span *ngIf="!product.brand?.id">
+                                Selecionar...
+                            </span>
+                        </div>
+                    </ion-col>
+                </ion-row>
+
+                <ion-row>
+                    <ion-col size="12" size-sm="6">
+
+                        <ion-label class="fw-600" color="medium">Categorias*</ion-label>
+                        <div class="input-light" (click)="selectCategories()">
+                            <span>
+                                Selecionar Categorias...
+                            </span>
+                        </div>
+                    </ion-col>
+                    <ion-col size="12">
+                        <ion-badge class="mr-5" *ngFor="let category of this.product.categories" color="medium">{{
+                            category.name }}</ion-badge>
+                    </ion-col>
+                </ion-row>
+
+                <ion-row>
+                    <ion-col size="12">
+                        <ion-label class="fw-600" color="medium">Descrição*</ion-label>
+                        <ion-textarea rows="6" type="text" class="input-light"
+                            [(ngModel)]="product.description"></ion-textarea>
+                    </ion-col>
+                </ion-row>
+
+            </ion-card-content>
+        </ion-card>
+    </ion-col>
+
+    <ion-row class="mt-20 mb-10">
+        <ion-col class="ion-no-padding">
+            <ion-card class="m0" color="white" mode="ios">
+                <ion-card-content>
+                    <ion-row>
+
+                        <ion-col size="12" *ngIf="!product.image.path && !product.image.base64">
+                            <ion-label class="fw-600" color="medium">Selecione uma imagem (700x700)</ion-label>
+                            <input type="file" class="bg-light" (change)="fileChangeEvent($event)" />
+                        </ion-col>
+
+                        <ion-col size="12" *ngIf="product.image.path || product.image.base64">
+                            <div class="bg-primary text-white p10 br-6">
+                                Para trocar a imagem, precisa remover a atual primeiro.
+                            </div>
+                        </ion-col>
+                        <ion-col size="7">
+                            <div *ngIf="imageChangedEvent && imageChangedEvent.isTrusted == true">
+                                <image-cropper [imageChangedEvent]="imageChangedEvent" [maintainAspectRatio]="true"
+                                    [aspectRatio]="1" format="png" [resizeToWidth]="700" [resizeToHeight]="700"
+                                    (imageCropped)="imageCropped($event)" (imageLoaded)="imageLoaded()"
+                                    (cropperReady)="cropperReady()"
+                                    (loadImageFailed)="loadImageFailed()"></image-cropper>
+                                <ion-button color="primary" (click)="pushImage()">Usar imagem</ion-button>
+                            </div>
+                        </ion-col>
+                        <ion-col>
+                            <img *ngIf="croppedImage" [src]="croppedImage" />
+                        </ion-col>
+                    </ion-row>
+                </ion-card-content>
+            </ion-card>
+        </ion-col>
+    </ion-row>
+
+    <ion-row class="pt-10 mb-10">
+        <ion-col class="ion-no-padding">
+            <ion-card class="m0" color="white" mode="ios">
+                <ion-card-content>
+                    <ion-row>
+                        <ion-col>
+                            <ion-label class="fw-600" color="medium">Imagens</ion-label>
+                        </ion-col>
+                    </ion-row>
+
+                    <ion-row>
+                        <ion-col *ngIf="product.images.length === 0">Não há imagem cadastrada.</ion-col>
+
+                        <ion-col *ngIf="product.images.length > 0">
+                            <ion-row>
+                                <ion-col *ngFor="let image of product.images" size="3" size-md="2">
+                                    <ng-container *ngIf="image.base64 || image.path">
+                                        <img [src]="image.base64 || (url_s3 + image.path)" />
+                                        <ion-button class="m0" color="danger" expand="full" size="small"
+                                            (click)="removeImage(image, $event)">
+                                            <ion-icon slot="start" size="small" name="trash"></ion-icon>Remover
+                                        </ion-button>
+                                    </ng-container>
+                                </ion-col>
+                            </ion-row>
+                        </ion-col>
+                    </ion-row>
+                </ion-card-content>
+            </ion-card>
+        </ion-col>
+    </ion-row>
+
+    <ion-row class="mt-20">
+        <ion-col size="12" size-sm="4">
+            <ion-button (click)="save()" expand="full" shape="round" mode="ios" color="success">
+                Salvar
+            </ion-button>
+        </ion-col>
+    </ion-row>
+
+</ion-content>

@@ -60,6 +60,13 @@ const routes: Routes = [
             ),
     },
     {
+        path: 'products',
+        loadChildren: () =>
+            import('./modules/products/product.module').then(
+                (mod) => mod.ProductModule
+            ),
+    },
+    {
         path: 'users',
         loadChildren: () =>
             import('./modules/account/users/user.module').then(
