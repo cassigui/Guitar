@@ -190,6 +190,7 @@ return [
         App\Modules\Categories\Providers\CategoryServiceProvider::class,
         App\Modules\Products\Providers\ProductServiceProvider::class,
         App\Modules\Banners\Providers\BannerServiceProvider::class,
+        App\Modules\Comments\Providers\CommentServiceProvider::class,
     ],
 
     /*

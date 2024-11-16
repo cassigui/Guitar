@@ -74,6 +74,13 @@ const routes: Routes = [
             ),
     },
     {
+        path: 'comments',
+        loadChildren: () =>
+            import('./modules/comments/comment.module').then(
+                (mod) => mod.CommentModule
+            ),
+    },
+    {
         path: 'users',
         loadChildren: () =>
             import('./modules/account/users/user.module').then(
