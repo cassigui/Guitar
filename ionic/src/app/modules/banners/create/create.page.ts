@@ -3,17 +3,12 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { IonContent, ModalController } from '@ionic/angular';
 import { ImageCroppedEvent } from 'ngx-image-cropper';
 
-import { Brand } from '../../brands/brand';
-import { BrandService } from '../../brands/brand.service';
 import { Image } from '../../images/image';
 import { Banner } from '../banner';
 
 import { ProductService } from '../banner.service';
 import { HelperService } from 'src/app/base/helper.service';
 import { ImageService } from '../../images/image.service';
-import { SelectComponent } from 'src/app/components/select/select.component';
-import { SelectMultipleComponent } from 'src/app/components/select-multiple/select-multiple.component';
-import { Category } from '../../categories/category';
 import { CategoryService } from '../../categories/category.service';
 
 @Component({
@@ -35,7 +30,6 @@ export class CreatePage implements OnInit {
     url_s3: string = this.ProductService.url_s3;
 
     constructor(
-        private brandService: BrandService,
         private categoryService: CategoryService,
         private helperService: HelperService,
         private imageService: ImageService,
@@ -72,6 +66,11 @@ export class CreatePage implements OnInit {
     }
 
     save() {
+
+        if (Array.isArray(this.banner.images) && this.banner.images.length === 0) {
+            this.helperService.toast('danger', 'Imagem é obrigatório.');
+            return;
+        }
         
         this.helperService.loading('Salvando');
 

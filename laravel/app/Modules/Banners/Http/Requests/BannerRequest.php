@@ -17,8 +17,8 @@ class BannerRequest extends BaseRequest
             'title' => 'required',
             'description' => 'required',
             'button_cta' => 'required',
-            'link' => 'required'
-        ];
+            'link' => 'required',
+                ];
     }
 
     public function attributeNames()
@@ -27,7 +27,7 @@ class BannerRequest extends BaseRequest
             'title' => 'Titulo',
             'description' => 'Descrição',
             'button_cta' => 'Botão de Ação',
-            'link' => 'Link'
+            'link' => 'Link',
         ];
     }
 
