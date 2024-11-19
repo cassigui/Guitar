@@ -14,6 +14,7 @@ class BannerRequest extends BaseRequest
     public function rules()
     {
         return [
+            'tagline'=> 'required',
             'title' => 'required',
             'description' => 'required',
             'button_cta' => 'required',
@@ -24,10 +25,11 @@ class BannerRequest extends BaseRequest
     public function attributeNames()
     {
         return [
+            'tagline'=> 'Palavra-Chave',
             'title' => 'Titulo',
             'description' => 'Descrição',
-            'button_cta' => 'Botão de Ação',
-            'link' => 'Link',
+            'button_cta' => 'Nome do botão',
+            'link' => 'Link do botão',
         ];
     }
 

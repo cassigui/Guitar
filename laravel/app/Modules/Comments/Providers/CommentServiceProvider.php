@@ -16,7 +16,7 @@ class CommentServiceProvider extends ServiceProvider
             ->prefix('sistema')
             ->group(__DIR__ . '/../routes/web.php');
 
-        Route::middleware(['api', 'jwt.auth', 'jwt.refresh'])
+        Route::middleware(['api'])
             ->prefix('api')
             ->group(__DIR__ . '/../routes/api.php');
 

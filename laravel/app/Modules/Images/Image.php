@@ -16,5 +16,13 @@ class Image extends Model
     public function imageable()
     {
         return $this->morphTo();
+    }  
+    
+    protected $appends = [
+        'path_s3'
+    ];
+
+    function getPathS3Attribute(){
+        return config('filesystems.disks.s3.url') . $this->path;
     }
 }

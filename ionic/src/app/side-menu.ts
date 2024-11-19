@@ -11,7 +11,7 @@ export const MenuItems: RouteInfo[] = [
     {category: 'brands',path: '/brands',title: 'Marcas',icon: 'copyright',class: '',},
     {category: 'categories',path: '/categories',title: 'Categorias',icon: 'list',class: '',},
     {category: 'products',path: '/products',title: 'Produtos',icon: 'guitar',class: '',},
-    {category: 'banners',path: '/banners',title: 'Faixas',icon: 'image',class: '',},
+    {category: 'banners',path: '/banners',title: 'Banners',icon: 'image',class: '',},
     {category: 'comments',path: '/comments',title: 'Depoimentos',icon: 'comment',class: '',},
 
     {category: '',path: '',title: 'Geral', icon: '',class: ''},

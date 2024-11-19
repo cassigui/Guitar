@@ -1,7 +1,7 @@
 <ion-header>
     <ion-toolbar mode="ios">
         <ion-menu-button mode="ios" slot="start"></ion-menu-button>
-        <ion-title (click)="content.scrollToTop(500)">Faixas</ion-title>
+        <ion-title (click)="content.scrollToTop(500)">Banners</ion-title>
         <ion-buttons slot="end">
             <ion-button mode="ios" [routerLink]="['/banners/create']" *ifAuth="[{create: 'banners'}]" color="white">
                 <ion-icon name="add-circle"></ion-icon>
@@ -29,7 +29,7 @@
                             mode="ios" placeholder="ID ..." #search></ion-searchbar>
                     </ion-col>
                     <ion-col>
-                        <ion-searchbar [(ngModel)]="filters.name" (ionChange)="paginate()" debounce="250" class="p0"
+                        <ion-searchbar [(ngModel)]="filters.title" (ionChange)="paginate()" debounce="250" class="p0"
                             mode="ios" placeholder="Nome ..." #search></ion-searchbar>
                     </ion-col>
                 </ion-item-divider>

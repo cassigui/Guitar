@@ -4,7 +4,7 @@
             <ion-back-button mode="ios" text="" icon="chevron-back" [routerLink]="['/banners']">
             </ion-back-button>
         </ion-buttons>
-        <ion-title (click)="debug()">{{ editing ? 'Editando' : 'Nova' }} Faixa </ion-title>
+        <ion-title (click)="debug()">{{ editing ? 'Editando' : 'Novo' }} Banner </ion-title>
     </ion-toolbar>
 </ion-header>
 
@@ -15,26 +15,30 @@
             <ion-card-content>
 
                 <ion-row>
-                    <ion-col size="12">
+                    <ion-col size="12" size-md="6">
+                        <ion-label class="fw-600" color="medium">Palavra-chave*</ion-label>
+                        <ion-input type="text" class="input-light" [(ngModel)]="banner.tagline"></ion-input>
+                    </ion-col>
+                    <ion-col size="12" size-md="6">
                         <ion-label class="fw-600" color="medium">Título*</ion-label>
                         <ion-input type="text" class="input-light" [(ngModel)]="banner.title"></ion-input>
                     </ion-col>
                 </ion-row>
 
                 <ion-row>
-                    <ion-col size="12" size-md="6">
+                    <ion-col size="12">
                         <ion-label class="fw-600" color="medium">Descrição*</ion-label>
-                        <ion-input type="text" class="input-light" [(ngModel)]="banner.description"></ion-input>
-                    </ion-col>
-                    <ion-col size="12" size-md="6">
-                        <ion-label class="fw-600" color="medium">Botão de ação*</ion-label>
-                        <ion-input type="text" class="input-light" [(ngModel)]="banner.button_cta"></ion-input>
+                        <ion-textarea type="text" rows="3" class="input-light" [(ngModel)]="banner.description"></ion-textarea>
                     </ion-col>
                 </ion-row>
 
                 <ion-row>
-                    <ion-col size="12">
-                        <ion-label class="fw-600" color="medium">Link*</ion-label>
+                    <ion-col size="12" size-md="6">
+                        <ion-label class="fw-600" color="medium">Nome do botão*</ion-label>
+                        <ion-input type="text" class="input-light" [(ngModel)]="banner.button_cta"></ion-input>
+                    </ion-col>
+                    <ion-col size="12" size-md="6">
+                        <ion-label class="fw-600" color="medium">Link do botão*</ion-label>
                         <ion-input type="text" class="input-light" [(ngModel)]="banner.link"></ion-input>
                     </ion-col>
                 </ion-row>
@@ -51,7 +55,7 @@
 
                         <ion-col size="12" *ngIf="!banner.image.path && !banner.image.base64">
                             <ion-label class="fw-600" color="medium">Selecione uma imagem (1920x900)*</ion-label>
-                            <input type="file" class="bg-light" (change)="fileChangeEvent($event)"/>
+                            <input type="file" class="bg-light" (change)="fileChangeEvent($event)" />
                         </ion-col>
 
                         <ion-col size="12" *ngIf="banner.image.path || banner.image.base64">

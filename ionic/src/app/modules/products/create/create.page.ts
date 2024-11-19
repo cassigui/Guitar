@@ -78,6 +78,11 @@ export class CreatePage implements OnInit {
 
     save() {
 
+        if (Array.isArray(this.product.images) && this.product.images.length === 0) {
+            this.helperService.toast('danger', 'Imagem é obrigatório.');
+            return;
+        }
+
         if (parseFloat(this.product.promo_price) >= parseFloat(this.product.price)) {
             this.helperService.toast('secondary', "O preço promocional deve ser menor que o preço do produto");
             return;

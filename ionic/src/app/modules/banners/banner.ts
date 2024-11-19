@@ -5,8 +5,9 @@ import { Image } from '../images/image';
 export class Banner extends Serializable {
 
     id: number = null;
+    tagline: string = null;
     title: string = null;
-    mini_title:string = null;
+    mini_title: string = null;
     description: string = null;
     button_cta: string = null;
     link: string = null;
@@ -36,12 +37,13 @@ export class Banner extends Serializable {
     get http_data() {
         return {
             id: this.id,
+            tagline: this.tagline,
             title: this.title,
             mini_title: this.mini_title,
             description: this.description,
             button_cta: this.button_cta,
             link: this.link,
-            image: this.image, 
+            image: this.image,
             images: this.images,
         }
     }

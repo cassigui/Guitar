@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html dir="ltr" lang="pt-br" class=" js no-touch csstransitions">
+<html lang="en" dir="ltr">
 
 <head>
     <!-- Metas -->
@@ -27,42 +27,67 @@
     <title>@yield('title')</title>
 
 
+    <!-- Icon CSS -->
+    <link rel="stylesheet" href="{{ asset('assets/css/vendor/materialdesignicons.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/vendor/remixicon.css') }}">
+
+    <!-- Vendor -->
+    <link rel="stylesheet" href="{{ asset('assets/css/vendor/animate.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/vendor/bootstrap.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/vendor/aos.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/vendor/range-slider.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/vendor/swiper-bundle.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/vendor/jquery.slick.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/vendor/slick-theme.css') }}">
+
+    <!-- Main CSS -->
+    <link rel="stylesheet" href="{{ asset('assets/css/style.css') }}">
 
     {!! Value::get('scripts_head') !!}
 </head>
 
-<body>
+<body class="body-bg-6">
     {!! Value::get('scripts_body_start') !!}
-
-    <script>
-        var _url = "{{ url('/') }}";
-        var _urlS3 = "{{ config('filesystems.disks.s3.url') }}";
-        var _token = "{{ csrf_token() }}";
-        var _urlcrm = "{{ Value::get('urlcrm') }}";
-        var _crmkey = "{{ Value::get('crmkey') }}";
-    </script>
-
-
-    <div class="page-wrapper">
-
-        {{-- @include('site.widgets.header') --}}
-
-        @yield('content')
-
-        {{-- @include('site.widgets.footer') --}}
-
+    <!-- Loader -->
+    <div id="cr-overlay">
+        <span class="loader"></span>
     </div>
-    
+
+
+    @include('site.widgets.header')
+
+    @yield('content')
+
+    @include('site.widgets.footer')
+
+    <!-- Tab to top -->
+    <a href="index.html#Top" class="back-to-top result-placeholder">
+        <i class="ri-arrow-up-line"></i>
+        <div class="back-to-top-wrap">
+            <svg viewBox="-1 -1 102 102">
+                <path d="M50,1 a49,49 0 0,1 0,98 a49,49 0 0,1 0,-98" />
+            </svg>
+        </div>
+    </a>
+
+    <!-- Vendor Custom -->
+    <script src="{{ asset('assets/js/vendor/jquery-3.6.4.min.js') }}"></script>
+    <script src="{{ asset('assets/js/vendor/jquery.zoom.min.js') }}"></script>
+    <script src="{{ asset('assets/js/vendor/bootstrap.bundle.min.js') }}"></script>
+    <script src="{{ asset('assets/js/vendor/mixitup.min.js') }}"></script>
+
+    <script src="{{ asset('assets/js/vendor/range-slider.js') }}"></script>
+    <script src="{{ asset('assets/js/vendor/aos.min.js') }}"></script>
+    <script src="{{ asset('assets/js/vendor/swiper-bundle.min.js') }}"></script>
+    <script src="{{ asset('assets/js/vendor/slick.min.js') }}"></script>
+
     @stack('linkscripts')
-
+    <!-- Main Custom -->
+    <script src="{{ asset('assets/js/main.js') }}"></script>
     @stack('scripts')
-
-
-    @stack('head')
 
     {!! Value::get('scripts_body_end') !!}
 
-    
 </body>
 
 </html>

@@ -12,6 +12,7 @@ class Banner extends Model
 
     protected $fillable = [
         'id',
+        'tagline',
         'title',
         'mini-title',
         'description',

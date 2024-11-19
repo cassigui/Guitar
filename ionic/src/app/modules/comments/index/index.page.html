@@ -1,7 +1,7 @@
 <ion-header>
     <ion-toolbar mode="ios">
         <ion-menu-button mode="ios" slot="start"></ion-menu-button>
-        <ion-title (click)="content.scrollToTop(500)">Comentários</ion-title>
+        <ion-title (click)="content.scrollToTop(500)">Depoimentos</ion-title>
         <ion-buttons slot="end">
             <ion-button mode="ios" [routerLink]="['/comments/create']" *ifAuth="[{create: 'comments'}]" color="white">
                 <ion-icon name="add-circle"></ion-icon>
