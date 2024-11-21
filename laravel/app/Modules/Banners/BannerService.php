@@ -6,6 +6,7 @@ use App\Modules\Banners\Banner;
 use App\Modules\Base\Services\ApiService;
 use App\Modules\Images\ImageService;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Str;
 
 class BannerService
 {
@@ -22,7 +23,7 @@ class BannerService
                 'height' => 400,
             ],
         ];
-        
+
     }
 
     protected function getCustomFilters()
@@ -42,14 +43,13 @@ class BannerService
     public function store(array $data)
     {
         try {
-            info($data);
-
             DB::beginTransaction();
 
+            $data['slug'] = Str::slug($data['title'], '-');
             $model = $this->model->create($data);
 
-            if (isset($data['images']) && count($data['images']) > 0) {
-                $this->store_images($data['images'], $model->id);
+            if (isset($data['image'])) {
+                $this->store_image($data['image'], $model->id);
             }
 
             DB::commit();
@@ -59,20 +59,6 @@ class BannerService
         }
 
         return $model;
-    }
-
-    public function store_images(array $images, int $model_id)
-    {
-        foreach ($images as $image) {
-            if ($image['base64']) {
-                $image['imageable_id'] = $model_id;
-                $image['imageable_type'] = 'banners';
-                $image['order'] = 0;
-                $image['thumbs'] = $this->thumbs;
-
-                $this->image_service->store($image);
-            }
-        }
     }
 
     public function update(array $data, $id)
@@ -80,11 +66,13 @@ class BannerService
         try {
             DB::beginTransaction();
 
+            $data['slug'] = Str::slug($data['title'], '-');
             $model = $this->model->findOrFail($id);
+
             $model->update($data);
 
-            if (isset($data['images']) && count($data['images']) > 0) {
-                $this->store_images($data['images'], $model->id);
+            if (isset($data['image'])) {
+                $this->store_image($data['image'], $model->id);
             }
 
             DB::commit();
@@ -94,6 +82,18 @@ class BannerService
         }
 
         return $model;
+    }
+
+    public function store_image(array $data, int $model_id)
+    {
+        if ($data['base64']) {
+            $data['imageable_id'] = $model_id;
+            $data['imageable_type'] = 'banners';
+            $data['order'] = 0;
+            $data['thumbs'] = $this->thumbs;
+
+            $this->image_service->store($data);
+        }
     }
 
     public function destroy($id)

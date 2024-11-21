@@ -41,7 +41,7 @@
     <link rel="stylesheet" href="{{ asset('assets/css/vendor/slick-theme.css') }}">
 
     <!-- Main CSS -->
-    <link rel="stylesheet" href="{{ asset('assets/css/style.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/style.css') }}?v={{ time() }}">
 
     {!! Value::get('scripts_head') !!}
 </head>

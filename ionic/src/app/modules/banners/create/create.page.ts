@@ -1,15 +1,14 @@
 import { Component, OnInit, ViewChild, Input, ElementRef } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { IonContent, ModalController } from '@ionic/angular';
+import { IonContent } from '@ionic/angular';
 import { ImageCroppedEvent } from 'ngx-image-cropper';
 
 import { Image } from '../../images/image';
 import { Banner } from '../banner';
 
-import { ProductService } from '../banner.service';
+import { BannerService } from '../banner.service';
 import { HelperService } from 'src/app/base/helper.service';
 import { ImageService } from '../../images/image.service';
-import { CategoryService } from '../../categories/category.service';
 
 @Component({
     selector: 'app-create',
@@ -27,14 +26,12 @@ export class CreatePage implements OnInit {
     imageChangedEvent: any = '';
     croppedImage: any = '';
 
-    url_s3: string = this.ProductService.url_s3;
+    url_s3: string = this.BannerService.url_s3;
 
     constructor(
-        private categoryService: CategoryService,
         private helperService: HelperService,
         private imageService: ImageService,
-        private modalController: ModalController,
-        private ProductService: ProductService,
+        private BannerService: BannerService,
         private route: ActivatedRoute,
         private router: Router
     ) {
@@ -55,9 +52,12 @@ export class CreatePage implements OnInit {
     }
 
     get() {
-        this.ProductService.find(['images'], { id: this.id }).then(
-            async (data: any) => { 
+        this.BannerService.find(['image'], { id: this.id }).then(
+            async (data: any) => {
                 this.banner = new Banner(data.banner);
+                if (this.banner.image == null) {
+                    this.banner.image = new Image();
+                }
             },
             (error: any) => {
                 this.helperService.responseErrors(error);
@@ -66,12 +66,11 @@ export class CreatePage implements OnInit {
     }
 
     save() {
-
-        if (Array.isArray(this.banner.images) && this.banner.images.length === 0) {
+        if (!this.banner.image.path && !this.banner.image.base64) {
             this.helperService.toast('danger', 'Imagem é obrigatório.');
             return;
         }
-        
+
         this.helperService.loading('Salvando');
 
         if (this.banner.id > 0) {
@@ -82,7 +81,7 @@ export class CreatePage implements OnInit {
     }
 
     store() {
-        this.ProductService.store(this.banner).then(
+        this.BannerService.store(this.banner).then(
             (data: any) => {
                 this.helperService.loading_dismiss();
                 if (data.error) {
@@ -100,7 +99,7 @@ export class CreatePage implements OnInit {
     }
 
     update() {
-        this.ProductService.update(this.banner).then(
+        this.BannerService.update(this.banner).then(
             (data: any) => {
                 this.helperService.loading_dismiss();
                 if (data.error) {
@@ -117,12 +116,10 @@ export class CreatePage implements OnInit {
         );
     }
 
-    //Image
     pushImage() {
-        this.banner.images.push(new Image({ base64: this.croppedImage }));
+        this.banner.image = new Image({ base64: this.croppedImage });
         this.imageChangedEvent = null;
         this.croppedImage = null;
-        this.banner.image = new Image;
     }
 
     fileChangeEvent(event: any): void {
@@ -148,9 +145,7 @@ export class CreatePage implements OnInit {
         );
     }
 
-    async removeImage(image: Image, eventPopover: any) {
-        let index = this.banner.images.indexOf(image);
-
+    async removeImage(image: Image, index: number, eventPopover: any) {
         let popover = await this.helperService.listPopover(
             eventPopover,
             'Tem certeza?',
@@ -174,7 +169,7 @@ export class CreatePage implements OnInit {
                     this.destroyImage(image, index);
                 } else {
                     this.helperService.toast('success', 'Removido com sucesso');
-                    this.banner.images.splice(index, 1);
+                    this.banner.image = new Image();
                 }
             }
         });
@@ -189,7 +184,7 @@ export class CreatePage implements OnInit {
                     this.helperService.toast('error', data.message);
                 }
                 this.helperService.toast('success', 'Removido com sucesso');
-                this.banner.images.splice(index, 1);
+                this.banner.image = new Image();
             },
             (error: any) => {
                 this.helperService.responseErrors(error);

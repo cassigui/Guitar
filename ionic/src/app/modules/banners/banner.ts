@@ -3,18 +3,16 @@ import * as moment from 'moment';
 import { Image } from '../images/image';
 
 export class Banner extends Serializable {
+    id: number = 0;
+    tagline: string = "";
+    title: string = "";
+    slug: string = "";
+    description: string = "";
+    button_cta: string = "";
+    link: string = "";
 
-    id: number = null;
-    tagline: string = null;
-    title: string = null;
-    mini_title: string = null;
-    description: string = null;
-    button_cta: string = null;
-    link: string = null;
-
-    images: Image[] = [];
-    image: Image = new Image;
-
+    image: Image = new Image();
+    
     created_at: moment.Moment = null;
     updated_at: moment.Moment = null;
     deleted_at: moment.Moment = null;
@@ -26,7 +24,7 @@ export class Banner extends Serializable {
 
     get relations() {
         return {
-            images: Image,
+            image: Image,
         };
     }
 
@@ -36,15 +34,14 @@ export class Banner extends Serializable {
 
     get http_data() {
         return {
-            id: this.id,
+            id:this.id,
             tagline: this.tagline,
             title: this.title,
-            mini_title: this.mini_title,
+            slug: this.slug,
             description: this.description,
             button_cta: this.button_cta,
             link: this.link,
-            image: this.image,
-            images: this.images,
-        }
+            image:this.image,
+        };
     }
 }

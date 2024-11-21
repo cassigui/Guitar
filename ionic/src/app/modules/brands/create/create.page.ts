@@ -191,4 +191,7 @@ export class CreatePage implements OnInit {
             }
         );
     }
+    debug(){
+        console.log(this.brand);
+    }
 }

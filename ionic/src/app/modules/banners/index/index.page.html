@@ -30,7 +30,7 @@
                     </ion-col>
                     <ion-col>
                         <ion-searchbar [(ngModel)]="filters.title" (ionChange)="paginate()" debounce="250" class="p0"
-                            mode="ios" placeholder="Nome ..." #search></ion-searchbar>
+                            mode="ios" placeholder="Título ..." #search></ion-searchbar>
                     </ion-col>
                 </ion-item-divider>
 
@@ -38,7 +38,7 @@
                 <ion-item-divider color="webfloat-blue" mode="md">
                     <ion-col size="2" size-md="1">ID</ion-col>
 
-                    <ion-col>Titulo</ion-col>
+                    <ion-col>Nome</ion-col>
                     <ion-col size="2" *ifAuth="[{update: 'banners'}]"></ion-col>
                     <ion-col size="2" *ifAuth="[{delete: 'banners'}]"></ion-col>
                     <!-- <ion-col size="2" *ifAuth="[{delete: 'banners'}]"></ion-col> -->

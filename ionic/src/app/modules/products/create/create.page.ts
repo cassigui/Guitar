@@ -98,6 +98,12 @@ export class CreatePage implements OnInit {
     }
 
     store() {
+
+        if (parseFloat(this.product.promo_price) >= parseFloat(this.product.price)) {
+            this.helperService.toast('secondary', "O preço promocional deve ser menor que o preço do produto");
+            return;
+        }
+
         this.ProductService.store(this.product).then(
             (data: any) => {
                 this.helperService.loading_dismiss();
@@ -116,6 +122,12 @@ export class CreatePage implements OnInit {
     }
 
     update() {
+
+        if (parseFloat(this.product.promo_price) >= parseFloat(this.product.price)) {
+            this.helperService.toast('secondary', "O preço promocional deve ser menor que o preço do produto");
+            return;
+        }
+
         this.ProductService.update(this.product).then(
             (data: any) => {
                 this.helperService.loading_dismiss();

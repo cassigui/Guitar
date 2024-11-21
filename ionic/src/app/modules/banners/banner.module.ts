@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { SelectMultipleComponentModule } from 'src/app/components/select-multiple/select-multiple.component.module';
 import { AuthGuard } from 'src/app/modules/account/auth/auth.guard';
 
 const routes: Routes = [
@@ -32,10 +31,7 @@ const routes: Routes = [
 
 @NgModule({
     declarations: [],
-    imports: [
-        RouterModule.forChild(routes),
-        SelectMultipleComponentModule        
-    ],
+    imports: [RouterModule.forChild(routes)],
     exports: [RouterModule]
 })
 export class BannerModule { }

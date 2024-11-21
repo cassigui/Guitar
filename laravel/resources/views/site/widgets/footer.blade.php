@@ -5,8 +5,8 @@
                 <div class="col-xl-4 col-lg-6 col-sm-12 cr-footer-border">
                     <div class="cr-footer-logo">
                         <div class="image">
-                            <img src="assets/img/logo/logo.svg" alt="logo" class="logo">
-                            <img src="assets/img/logo/dark-logo.png" alt="logo" class="dark-logo">
+                            <img src="{{asset('assets/img/logo/logo.svg')}}" alt="logo" class="logo">
+                            <img src="{{asset('assets/img/logo/dark-logo.png')}}" alt="logo" class="dark-logo">
                         </div>
                     </div>
                     <div class="cr-footer">
@@ -34,9 +34,9 @@
                             <span class="cr-heading-res"></span>
                         </h4>
                         <ul class="cr-footer-links cr-footer-dropdown">
-                            <li><a href="#sobre">Sobre nós</a></li>
-                            <li><a href="#sobre">Contato</a></li>
-                            <li><a href="#sobre">Produtos</a></li>
+                            <li><a href="{{url('/#sobre')}}">Sobre nós</a></li>
+                            <li><a href="{{url('/contato')}}">Contato</a></li>
+                            <li><a href="{{url('/produtos')}}">Produtos</a></li>
                         </ul>
                     </div>
                 </div>
@@ -47,31 +47,31 @@
                                 <div class="swiper-wrapper">
                                     <div class="swiper-slide">
                                         <a href="index.html#" class="cr-payment-image">
-                                            <img src="assets/img/insta/1.jpg" alt="insta">
+                                            <img src="{{asset('assets/img/insta/1.jpg')}}" alt="insta">
                                             <div class="payment-overlay"></div>
                                         </a>
                                     </div>
                                     <div class="swiper-slide">
                                         <a href="index.html#" class="cr-payment-image">
-                                            <img src="assets/img/insta/2.jpg" alt="insta">
+                                            <img src="{{asset('assets/img/insta/2.jpg')}}" alt="insta">
                                             <div class="payment-overlay"></div>
                                         </a>
                                     </div>
                                     <div class="swiper-slide">
                                         <a href="index.html#" class="cr-payment-image">
-                                            <img src="assets/img/insta/3.jpg" alt="insta">
+                                            <img src="{{asset('assets/img/insta/3.jpg')}}" alt="insta">
                                             <div class="payment-overlay"></div>
                                         </a>
                                     </div>
                                     <div class="swiper-slide">
                                         <a href="index.html#" class="cr-payment-image">
-                                            <img src="assets/img/insta/4.jpg" alt="insta">
+                                            <img src="{{asset('assets/img/insta/4.jpg')}}" alt="insta">
                                             <div class="payment-overlay"></div>
                                         </a>
                                     </div>
                                     <div class="swiper-slide">
                                         <a href="index.html#" class="cr-payment-image">
-                                            <img src="assets/img/insta/5.jpg" alt="insta">
+                                            <img src="{{asset('assets/img/insta/5.jpg')}}" alt="insta">
                                             <div class="payment-overlay"></div>
                                         </a>
                                     </div>
@@ -95,7 +95,7 @@
                 <div class="col-4 col-lg-2">
                     <a href="https://webfloat.com.br" target="_blank" class="tooltip-item" data-toggle="tooltip"
                         data-placement="top" title="Desenvolvido por">
-                        <img class="w-75" src="assets/img/logo/logowf.svg" alt="Webfloat Soluções Digitais"
+                        <img class="w-75" src="{{asset('assets/img/logo/logowf.svg')}}" alt="Webfloat Soluções Digitais"
                             class="wf_footer_logo">
                     </a>
                 </div>

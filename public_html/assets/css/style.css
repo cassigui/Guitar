@@ -864,8 +864,8 @@ a.back-to-top .back-to-top-wrap svg path {
   width: 120px;
   height: 60px;
   content: "";
-  background-image: url("../img/shape/11.png");
-  background-size: 100%;
+  background-image: url("../img/shape/8.png");
+  background-size: 50%;
   background-position: center;
   background-repeat: no-repeat;
   position: absolute;
@@ -4742,12 +4742,15 @@ ul.navbar-nav .dropdown:hover .dropdown-menu {
   text-align: center;
   overflow: hidden;
 }
+
 .cr-product-details .cr-brand a {
   -webkit-transition: all 0.3s ease-in-out;
   transition: all 0.3s ease-in-out;
-  margin-bottom: 5px;
   font-size: 13px;
   color: #777;
+  background: #7edbb9;
+  border-radius: 10px;
+  cursor: default;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -4755,6 +4758,17 @@ ul.navbar-nav .dropdown:hover .dropdown-menu {
       -ms-flex-pack: center;
           justify-content: center;
 }
+
+.categorias {
+  color: #777;
+  background: #7edbb9;
+  border-radius: 10px;
+  text-align: center;
+  font-size: 13px;
+  margin-right: 4px;
+  padding: 0px 15px;
+}
+
 .cr-product-details .cr-brand a:hover {
   color: #64b496;
 }

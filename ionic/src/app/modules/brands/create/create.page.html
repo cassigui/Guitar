@@ -4,7 +4,7 @@
             <ion-back-button mode="ios" text="" icon="chevron-back" [routerLink]="['/brands']">
             </ion-back-button>
         </ion-buttons>
-        <ion-title>{{ editing ? 'Editando' : 'Nova' }} Marca </ion-title>
+        <ion-title (click)="debug()">{{ editing ? 'Editando' : 'Nova' }} Marca </ion-title>
     </ion-toolbar>
 </ion-header>
 

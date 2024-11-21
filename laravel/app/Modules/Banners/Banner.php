@@ -14,7 +14,7 @@ class Banner extends Model
         'id',
         'tagline',
         'title',
-        'mini-title',
+        'slug',
         'description',
         'button_cta',
         'link'
@@ -22,12 +22,8 @@ class Banner extends Model
 
     public function image()
     {
-        return $this->morphOne(Image::class, 'imageable')->orderBy("order", "asc");
+        return $this->morphOne(Image::class, 'imageable');
     }
 
-    public function images()
-    {
-        return $this->morphMany(Image::class, 'imageable')->orderBy("order", "asc");
-    }
 }
 

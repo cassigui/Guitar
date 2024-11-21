@@ -94,7 +94,7 @@
                         <ion-col size="7">
                             <div *ngIf="imageChangedEvent && imageChangedEvent.isTrusted == true">
                                 <image-cropper [imageChangedEvent]="imageChangedEvent" [maintainAspectRatio]="true"
-                                    [aspectRatio]="1" format="png" [resizeToWidth]="700" [resizeToHeight]="700"
+                                    [aspectRatio]="0.88" format="jpg" [resizeToWidth]="550" [resizeToHeight]="620"
                                     (imageCropped)="imageCropped($event)" (imageLoaded)="imageLoaded()"
                                     (cropperReady)="cropperReady()"
                                     (loadImageFailed)="loadImageFailed()"></image-cropper>

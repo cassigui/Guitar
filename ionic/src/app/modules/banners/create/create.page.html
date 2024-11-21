@@ -15,16 +15,16 @@
             <ion-card-content>
 
                 <ion-row>
-                    <ion-col size="12" size-md="6">
-                        <ion-label class="fw-600" color="medium">Palavra-chave*</ion-label>
+                    <ion-col size="12" side-md="6">
+                        <ion-label class="fw-600" color="medium">Palavra-Chave*</ion-label>
                         <ion-input type="text" class="input-light" [(ngModel)]="banner.tagline"></ion-input>
                     </ion-col>
-                    <ion-col size="12" size-md="6">
+                    <ion-col size="12" side-md="6">
                         <ion-label class="fw-600" color="medium">Título*</ion-label>
                         <ion-input type="text" class="input-light" [(ngModel)]="banner.title"></ion-input>
                     </ion-col>
                 </ion-row>
-
+                
                 <ion-row>
                     <ion-col size="12">
                         <ion-label class="fw-600" color="medium">Descrição*</ion-label>
@@ -34,12 +34,12 @@
 
                 <ion-row>
                     <ion-col size="12" size-md="6">
-                        <ion-label class="fw-600" color="medium">Nome do botão*</ion-label>
-                        <ion-input type="text" class="input-light" [(ngModel)]="banner.button_cta"></ion-input>
+                        <ion-label class="fw-600" color="medium">Nome do Botão*</ion-label>
+                        <ion-input type="text" rows="3" class="input-light" [(ngModel)]="banner.button_cta"></ion-input>
                     </ion-col>
                     <ion-col size="12" size-md="6">
-                        <ion-label class="fw-600" color="medium">Link do botão*</ion-label>
-                        <ion-input type="text" class="input-light" [(ngModel)]="banner.link"></ion-input>
+                        <ion-label class="fw-600" color="medium">Link do Botão*</ion-label>
+                        <ion-input type="text" rows="3" class="input-light" [(ngModel)]="banner.link"></ion-input>
                     </ion-col>
                 </ion-row>
 
@@ -54,7 +54,7 @@
                     <ion-row>
 
                         <ion-col size="12" *ngIf="!banner.image.path && !banner.image.base64">
-                            <ion-label class="fw-600" color="medium">Selecione uma imagem (1920x900)*</ion-label>
+                            <ion-label class="fw-600" color="medium">Selecione uma imagem (1920x1080)*</ion-label>
                             <input type="file" class="bg-light" (change)="fileChangeEvent($event)" />
                         </ion-col>
 
@@ -66,7 +66,7 @@
                         <ion-col size="7">
                             <div *ngIf="imageChangedEvent && imageChangedEvent.isTrusted == true">
                                 <image-cropper [imageChangedEvent]="imageChangedEvent" [maintainAspectRatio]="true"
-                                    [aspectRatio]="2.13" format="png" [resizeToWidth]="1920" [resizeToHeight]="900"
+                                    [aspectRatio]="2.2" format="png" [resizeToWidth]="1920" [resizeToHeight]="1080"
                                     (imageCropped)="imageCropped($event)" (imageLoaded)="imageLoaded()"
                                     (cropperReady)="cropperReady()"
                                     (loadImageFailed)="loadImageFailed()"></image-cropper>
@@ -88,31 +88,24 @@
                 <ion-card-content>
                     <ion-row>
                         <ion-col>
-                            <ion-label class="fw-600" color="medium">Imagens</ion-label>
+                            <ion-label class="fw-600" color="medium">Imagem</ion-label>
                         </ion-col>
                     </ion-row>
-
                     <ion-row>
-                        <ion-col *ngIf="banner.images.length === 0">Não há imagem cadastrada.</ion-col>
-
-                        <ion-col *ngIf="banner.images.length > 0">
-                            <ion-row>
-                                <ion-col *ngFor="let image of banner.images" size="3" size-md="2">
-                                    <ng-container *ngIf="image.base64 || image.path">
-                                        <img [src]="image.base64 || (url_s3 + image.path)" />
-                                        <ion-button class="m0" color="danger" expand="full" size="small"
-                                            (click)="removeImage(image, $event)">
-                                            <ion-icon slot="start" size="small" name="trash"></ion-icon>Remover
-                                        </ion-button>
-                                    </ng-container>
-                                </ion-col>
-                            </ion-row>
+                        <ion-col *ngIf="!banner.image.path && !banner.image.base64">Não há imagem cadastrada.</ion-col>
+                        <ion-col *ngIf="banner.image.base64 || banner.image.path" size="3" size-md="2">
+                            <img [src]="banner.image.base64 || url_s3 + banner.image.path" />
+                            <ion-button class="m0" color="danger" expand="full" size="small"
+                                (click)="removeImage(banner.image, 1, $event)">
+                                <ion-icon slot="start" size="small" name="trash"></ion-icon> remover
+                            </ion-button>
                         </ion-col>
                     </ion-row>
                 </ion-card-content>
             </ion-card>
         </ion-col>
     </ion-row>
+
 
     <ion-row class="mt-20">
         <ion-col size="12" size-sm="4">

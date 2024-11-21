@@ -3,7 +3,7 @@ import { IonContent, IonInfiniteScroll, IonItemSliding } from '@ionic/angular';
 
 import { Banner } from '../banner';
 
-import { ProductService } from '../banner.service';
+import { BannerService } from '../banner.service';
 import { HelperService } from 'src/app/base/helper.service';
 
 @Component({
@@ -36,10 +36,10 @@ export class IndexPage implements OnInit {
     tds: any = new Array(1);
 
     constructor(
-        private productService: ProductService,
+        private brandService: BannerService,
         private helperService: HelperService,
     ) {
-        this.url_s3 = this.productService.url_s3;
+        this.url_s3 = this.brandService.url_s3;
     }
 
     ngOnInit() {
@@ -67,7 +67,7 @@ export class IndexPage implements OnInit {
             this._paginate.page = 1;
         }
         this.loading = true;
-        this.productService.get([], this.getFilters(), this._paginate)
+        this.brandService.get([], this.getFilters(), this._paginate)
             .then(
                 async (response: any) => {
                     this.total_of_data = response.banners.total;
@@ -118,7 +118,7 @@ export class IndexPage implements OnInit {
     }
 
     destroy(model: Banner) {
-        this.productService.destroy(model.id)
+        this.brandService.destroy(model.id)
             .then((response) => {
                 if (!response.error) {
                     var index = this.banners.findIndex(ac => ac.id == model.id);

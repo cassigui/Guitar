@@ -4,7 +4,7 @@ import { BaseService } from 'src/app/base/base.service';
 @Injectable({
     providedIn: 'root'
 })
-export class ProductService extends BaseService {
+export class BannerService extends BaseService {
 
     url = 'banners';
 
