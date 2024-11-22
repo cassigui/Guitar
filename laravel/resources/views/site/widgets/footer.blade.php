@@ -16,13 +16,13 @@
                         </h4>
                         <ul class="cr-footer-links cr-footer-dropdown">
                             <li class="location-icon">
-                                Rua Exemplo, Bairro Exemplo, Cidade Exemplo, Estado Exemplo, CEP 00000-000.
+                                {{Value::get('address')}}
                             </li>
                             <li class="mail-icon">
-                                <a href="javascript:void(0)">example@email.com</a>
+                                <a href="javascript:void(0)">{{Value::get('email')}}</a>
                             </li>
                             <li class="phone-icon">
-                                <a href="javascript:void(0)">42 5432-3456</a>
+                                <a href="javascript:void(0)">{{Value::get('phone')}}</a>
                             </li>
                         </ul>
                     </div>

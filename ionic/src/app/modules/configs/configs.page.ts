@@ -88,20 +88,20 @@ export class ConfigsPage implements OnInit {
     constructor(
         private config_service: ConfigService,
         private helperService: HelperService
-    ) {}
+    ) { }
 
     ngOnInit() {
         this.get();
     }
 
-    onToggleColorTheme(change: string){
-        if(change == 'dark'){
+    onToggleColorTheme(change: string) {
+        if (change == 'dark') {
             document.body.setAttribute('color-theme', 'dark');
         }
-        else{
+        else {
             document.body.setAttribute('color-theme', '');
         }
-      }
+    }
 
     get() {
         this.config_service.get().then(

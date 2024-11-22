@@ -8,18 +8,9 @@
                         <div class="cr-about" data-aos="fade-up" data-aos-duration="2000" data-aos-delay="400">
                             <h4 class="heading">{!! Value::get('about_title') !!}</h4>
                             <div class="cr-about-content">
-                                <p>Somos uma empresa dedicada ao universo musical, oferecendo uma variedade completa de
-                                    produtos que atendem músicos de todos os níveis e estilos. Em nossa loja, você
-                                    encontra instrumentos musicais, acessórios e equipamentos de áudio selecionados para
-                                    proporcionar a melhor experiência em qualidade e desempenho.</p>
-                                <p>Trabalhamos com marcas renomadas e produtos de alta qualidade para garantir que
-                                    nossos clientes tenham acesso às melhores opções do mercado. Nosso objetivo é ser
-                                    referência em confiança e satisfação, sempre superando as expectativas dos amantes
-                                    da música e profissionais do ramo.</p>
-                                <p>Nosso compromisso é proporcionar uma experiência de compra única, desde o atendimento
-                                    personalizado até a entrega do produto em perfeitas condições. Acreditamos que a
-                                    música tem o poder de transformar vidas, e estamos aqui para apoiar músicos,
-                                    produtores e todos que compartilham essa paixão em cada etapa de sua jornada.</p>
+                                <p>
+                                {!! Value::get('about_text')!!}
+                                </p>
                                 <div class="elementor-counter">
                                     <div class="row ">
                                         <div class="col-sm-4 col-12">

@@ -55,6 +55,7 @@
 
 
     @include('site.widgets.header')
+    @include('site.widgets.mobile_menu')
 
     @yield('content')
 

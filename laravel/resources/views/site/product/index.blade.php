@@ -61,13 +61,18 @@
                     <div class="cr-size-and-weight">
                         <div class="list">
                             <ul>
-                                <li><label>Marca<span>:</span></label><span
-                                        id="marca">{{ $product->brand->name }}</span></li>
+                                <li><label>Marca<span>:</span></label><span id="marca">
+                                        {{ isset($product->brand) ? $product->brand->name : 'Sem marca' }}
+                                    </span></li>
 
                                 <li><label>Categoria <span>:</span></label>
-                                    @foreach ($product->categories as $category)
-                                        <span class="categorias text-white" id="categoria">{{ $category->name }}</span>
-                                    @endforeach
+                                    @if (isset($product->categories) && $product->categories->isNotEmpty())
+                                        @foreach ($product->categories as $category)
+                                            <span class="categorias text-white" id="categoria">{{ $category->name }}</span>
+                                        @endforeach
+                                    @else
+                                        <span id="categoria">Sem categoria</span>
+                                    @endif
                                 </li>
                             </ul>
                         </div>

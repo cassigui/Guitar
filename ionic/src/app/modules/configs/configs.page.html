@@ -11,73 +11,73 @@
             <div>
                 <ion-card class="m0" color="white" mode="ios">
                     <ion-card-content>
+
                         <ion-row>
                             <ion-col>
-                                <ion-label class="fw-600" color="medium"
-                                    >Exemplo</ion-label
-                                >
-                                <input
-                                    type="text"
-                                    class="input-light"
-                                    mask="00"
-                                    suffix=" Dias"
-                                    placeholder="Dias"
-                                    [(ngModel)]="config.exemplo"
-                                />
+                                <ion-label class="fw-600" color="medium">Script de título sobre a empresa</ion-label>
+                                <ion-textarea class="input-light" rows="3" [(ngModel)]="config.about_title">
+                                </ion-textarea>
                             </ion-col>
                         </ion-row>
+
                         <ion-row>
                             <ion-col>
-                                <ion-label class="fw-600" color="medium"
-                                    >Scripts head</ion-label
-                                >
-                                <ion-textarea
-                                    class="input-light"
-                                    rows="20"
-                                    [(ngModel)]="config.scripts_head"
-                                >
+                                <ion-label class="fw-600" color="medium">Script de texto sobre a empresa</ion-label>
+                                <ion-textarea class="input-light" rows="10" [(ngModel)]="config.about_text">
+                                </ion-textarea>
+                            </ion-col>
+                        </ion-row>
+
+                        <ion-row>
+                            <ion-col>
+                                <ion-label class="fw-600" color="medium">Script de Endereço</ion-label>
+                                <ion-textarea class="input-light" rows="3" [(ngModel)]="config.address">
+                                </ion-textarea>
+                            </ion-col>
+                        </ion-row>
+
+                        <ion-row>
+                            <ion-col>
+                                <ion-label class="fw-600" color="medium">Scripts de email</ion-label>
+                                <ion-textarea class="input-light" rows="3" [(ngModel)]="config.email">
+                                </ion-textarea>
+                            </ion-col>
+                            <ion-col>
+                                <ion-label class="fw-600" color="medium">Scripts de telefone</ion-label>
+                                <ion-textarea class="input-light" rows="3" [(ngModel)]="config.phone">
+                                </ion-textarea>
+                            </ion-col>
+                        </ion-row>
+
+                        <ion-row>
+                            <ion-col>
+                                <ion-label class="fw-600" color="medium">Scripts head</ion-label>
+                                <ion-textarea class="input-light" rows="10" [(ngModel)]="config.scripts_head">
                                 </ion-textarea>
                             </ion-col>
                         </ion-row>
                         <ion-row>
                             <ion-col>
-                                <ion-label class="fw-600" color="medium"
-                                    >Scripts começo do body</ion-label
-                                >
-                                <ion-textarea
-                                    class="input-light"
-                                    rows="20"
-                                    [(ngModel)]="config.scripts_body_start"
-                                >
+                                <ion-label class="fw-600" color="medium">Scripts começo do body</ion-label>
+                                <ion-textarea class="input-light" rows="10" [(ngModel)]="config.scripts_body_start">
                                 </ion-textarea>
                             </ion-col>
                         </ion-row>
                         <ion-row>
                             <ion-col>
-                                <ion-label class="fw-600" color="medium"
-                                    >Scripts final do body</ion-label
-                                >
-                                <ion-textarea
-                                    class="input-light"
-                                    rows="20"
-                                    [(ngModel)]="config.scripts_body_end"
-                                >
+                                <ion-label class="fw-600" color="medium">Scripts final do body</ion-label>
+                                <ion-textarea class="input-light" rows="10" [(ngModel)]="config.scripts_body_end">
                                 </ion-textarea>
                             </ion-col>
                         </ion-row>
-                        <ion-row>
-                            <ion-col size-sm="4">
-                                <ion-button
-                                    (click)="save()"
-                                    expand="full"
-                                    shape="round"
-                                    mode="ios"
-                                    color="success"
-                                >
-                                    Salvar
-                                </ion-button>
-                            </ion-col>
-                        </ion-row>
+
+
+                        <ion-col size-sm="4">
+                            <ion-button (click)="save()" expand="full" shape="round" mode="ios" color="success">
+                                Salvar
+                            </ion-button>
+                        </ion-col>
+
                     </ion-card-content>
                 </ion-card>
             </div>
