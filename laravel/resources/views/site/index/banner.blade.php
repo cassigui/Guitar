@@ -1,11 +1,11 @@
     <!-- Hero slider -->
     <section class="section-hero next">
         <div class="cr-slider swiper-container">
-                <div class="swiper-wrapper">
-            @foreach ($banners as $banner)
+            <div class="swiper-wrapper">
+                @foreach ($banners as $banner)
                     <div class="swiper-slide">
                         <div class="cr-hero-banner cr-banner-image-one"
-                            style="background-image: url('{{ $banner->image->path_s3 }}')">
+                            style="background-image: url('{{ asset('assets/img/banner/banner-2.jpg') }}')">
                             <div class="container">
                                 <div class="row">
                                     <div class="col-lg-12">
@@ -26,7 +26,7 @@
                             </div>
                         </div>
                     </div>
-            @endforeach
-                </div>
+                @endforeach
+            </div>
         </div>
     </section>
