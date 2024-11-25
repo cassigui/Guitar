@@ -191,6 +191,7 @@ return [
         App\Modules\Products\Providers\ProductServiceProvider::class,
         App\Modules\Banners\Providers\BannerServiceProvider::class,
         App\Modules\Comments\Providers\CommentServiceProvider::class,
+        App\Modules\Leads\Providers\LeadServiceProvider::class,
     ],
 
     /*

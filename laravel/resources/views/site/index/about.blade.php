@@ -9,13 +9,14 @@
                             <h4 class="heading">{!! Value::get('about_title') !!}</h4>
                             <div class="cr-about-content">
                                 <p>
-                                {!! Value::get('about_text')!!}
+                                {!! nl2br(Value::get('about_text', 'Texto padrão')) !!}
                                 </p>
                                 <div class="elementor-counter">
                                     <div class="row ">
                                         <div class="col-sm-4 col-12">
                                             <h4 class="elementor">
-                                                <span class="elementor-counter-number">1.2</span>
+                                                <span class="elementor-counter-number">
+                                                {!! Value::get("num_clientes") ? Value::get("num_clientes") : 1.2!!}</span>
                                                 <span class="elementor-suffix">Mil</span>
                                             </h4>
                                             <div class="elementor-counter-title">
@@ -24,7 +25,9 @@
                                         </div>
                                         <div class="col-sm-4 col-12">
                                             <h4 class="elementor">
-                                                <span class="elementor-counter-number">40</span>
+                                                <span class="elementor-counter-number">
+                                                {!! Value::get("num_marcas") ? Value::get("num_marcas") : 40!!}
+                                                </span>
                                             </h4>
                                             <div class="elementor-counter-title">
                                                 <span>Marcas</span>
@@ -32,7 +35,9 @@
                                         </div>
                                         <div class="col-sm-4 col-12">
                                             <h4 class="elementor">
-                                                <span class="elementor-counter-number">200</span>
+                                                <span class="elementor-counter-number">
+                                                {!! Value::get("num_funcionarios") ? Value::get("num_funcionarios") : 200!!}
+                                                </span>
                                             </h4>
                                             <div class="elementor-counter-title">
                                                 <span>Funcionários</span>

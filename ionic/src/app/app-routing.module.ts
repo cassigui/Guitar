@@ -81,6 +81,13 @@ const routes: Routes = [
             ),
     },
     {
+        path: 'leads',
+        loadChildren: () =>
+            import('./modules/leads/lead.module').then(
+                (mod) => mod.LeadModule
+            ),
+    },
+    {
         path: 'users',
         loadChildren: () =>
             import('./modules/account/users/user.module').then(

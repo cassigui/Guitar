@@ -19,43 +19,62 @@
     <section class="section-product-full section-config">
         <div class="container">
             <div class="row mb-minus-24" data-aos="fade-up" data-aos-duration="2000" data-aos-delay="600">
+
                 <div class="col-xxl-4 col-xl-5 col-md-6 col-12 mb-24">
                     <div class="vehicle-detail-banner banner-content">
 
-                        <div class="banner-slider">
+                        @if (isset($product->images) && count($product->images) > 0)
+                            <div class="banner-slider">
+                                <div class="slider slider-for">
+                                    @foreach ($product->images as $image)
+                                        <div>
+                                            <div class="zoom-image-hover">
+                                                <img src="{{ isset($image->path_s3) && $image->path_s3 ? $image->path_s3 : asset('assets/img/product/dummy.jpg') }}"
+                                                    alt="{{ $product->name }}" class="imagem-principal">
+                                            </div>
+                                        </div>
+                                    @endforeach
+                                </div>
 
-                            <div class="slider slider-for">
-
-                                @foreach ($product->images as $image)
+                                <div class="slider slider-nav thumb-image">
+                                    @foreach ($product->images as $image)
+                                        <div class="thumbnail-image">
+                                            <div class="thumbImg">
+                                                <img src="{{ isset($image->path_s3) && $image->path_s3 ? $image->path_s3 : asset('assets/img/product/dummy.jpg') }}"
+                                                    alt="{{ $product->name }}" class="imagem-principal">
+                                            </div>
+                                        </div>
+                                    @endforeach
+                                </div>
+                            </div>
+                        @else
+                            <div class="banner-slider">
+                                <div class="slider slider-for">
                                     <div>
                                         <div class="zoom-image-hover">
-                                            <img src="{{ $image->path_s3 }}" alt="{{ $product->name }}"
-                                                class="imagem-principal">
+                                            <img src="{{ asset('assets/img/product/dummy.jpg') }}"
+                                                alt="{{ $product->name }}" class="imagem-principal">
                                         </div>
                                     </div>
-                                @endforeach
+                                </div>
 
-                            </div>
-
-                            <div class="slider slider-nav thumb-image">
-
-                                @foreach ($product->images as $image)
+                                <div class="slider slider-nav thumb-image">
                                     <div class="thumbnail-image">
                                         <div class="thumbImg">
-                                            <img src="{{ $image->path_s3 }}" alt="{{ $product->name }}"
-                                                class="imagem-principal">
+                                            <img src="{{ asset('assets/img/product/dummy.jpg') }}"
+                                                alt="{{ $product->name }}" class="imagem-principal">
                                         </div>
                                     </div>
-                                @endforeach
-
+                                </div>
                             </div>
+                        @endif
 
-                        </div>
                     </div>
                 </div>
+
                 <div class="col-xxl-8 col-xl-7 col-md-6 col-12 mb-24">
                     <div class="cr-size-and-weight-contain">
-                        <h2 class="heading" id="titulo"></h2>
+                        <h2 class="heading" id="titulo">{{ $product->name }}</h2>
                         <p id="texto"></p>
                     </div>
                     <div class="cr-size-and-weight">
@@ -77,12 +96,19 @@
                             </ul>
                         </div>
                         <div class="cr-product-price">
-                            <span class="old-price">R${{ $product->price }}</span>
-                            <span class="new-price">R${{ $product->promo_price }}</span>
+                            @if (isset($product->promo_price) && $product->promo_price > 0)
+                                <p class="cr-price"><span class="new-price">R${{ $product->promo_price }}</span>
+                                    <span class="old-price">R${{ $product->price }}</span>
+                                </p>
+                            @else
+                                <p class="cr-price"><span class="new-price">R${{ $product->price }}</span>
+                                </p>
+                            @endif
                         </div>
                     </div>
                 </div>
             </div>
+
             <div class="row" data-aos="fade-up" data-aos-duration="2000" data-aos-delay="600">
                 <div class="col-12">
                     <div class="cr-paking-delivery">

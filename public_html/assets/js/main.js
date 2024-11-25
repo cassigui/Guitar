@@ -1,10 +1,78 @@
+var data_http;
+var _token = $('meta[name="csrf-token"]').attr('content');
 
+$('#contact_form').on('submit', function (e) {
+    e.preventDefault();
+    console.log('clicado!')
 
-(function ($) { 
+    $('#btn_submit_form').hide();
+    $('#btn_loader_form').show();
+    
+    data_http = {
+        name: $('#contact_name').val(),
+        email: $('#contact_email').val(),
+        phone: $('#contact_phone').val(),
+        msg_subject: $('#contact_subject').val(),
+        message: $('#contact_message').val(),
+        _token: _token,
+    }
+    console.log(data_http);
+    contact_send(data_http);
+})
+function contact_send() {
+    $.ajax({
+        type: "POST",
+        url: '/contato',
+        data: data_http,
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+        },
+        success: contact_success,
+        error: contact_error,
+        dataType: 'json'
+    });
+}
+function contact_success(response) {
+    $('#btn_loader_form').hide();
+    $('#btn_submit_form').show();
+    if (!response.error) {
+        $('#message_success').html(response.message);
+        $('#message_success').slideDown();
+        setTimeout(() => {
+            $('#message_success').slideUp();
+        }, 5000);
+        contact_clean();
+    } else {
+        $('#message_error').html(response.message);
+        $('#message_error').slideDown();
+        setTimeout(() => {
+            $('#message_error').slideUp();
+        }, 6000);
+    }
+}
+function contact_error(error) {
+    if (error.responseJSON && error.responseJSON.error == true && error.responseJSON.message) {
+        $('#message_error').html(error.responseJSON.message);
+    } else {
+        $('#message_error').html('Erro ao enviar mensagem.');
+    }
+    $('#btn_loader_form').hide();
+    $('#btn_submit_form').show();
+    $('#message_error').slideDown();
+    setTimeout(() => {
+        $('#message_error').slideUp();
+    }, 5000);
+}
+
+function contact_clean() {
+    $('#contact_name, #contact_phone, #contact_email, #contact_subject, #contact_message').val('');
+}
+
+(function ($) {
 
     $(document).ready(function () {
         $('[data-toggle="tooltip"]').tooltip({
-            placement: 'top', 
+            placement: 'top',
         });
     })
 
@@ -565,7 +633,7 @@
     /* Footer year */
     var date = new Date().getFullYear();
 
-    document.getElementById("copyright_year").innerHTML = date ;
+    document.getElementById("copyright_year").innerHTML = date;
 
     /* Back to top button progress */
     var progressPath = document.querySelector('.back-to-top-wrap path');

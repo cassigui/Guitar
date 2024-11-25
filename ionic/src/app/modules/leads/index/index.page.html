@@ -1,0 +1,101 @@
+<ion-header>
+    <ion-toolbar mode="ios">
+        <ion-menu-button mode="ios" slot="start"></ion-menu-button>
+        <ion-title (click)="content.scrollToTop(500)" (click)=getFilters()>Leads</ion-title>
+        <ion-buttons slot="end">
+            <!-- <ion-button *ngIf="leads.length > 0"mode="ios" (click)="export()" color="white">
+                <ion-icon name="print"></ion-icon> Exportar e-mails
+            </ion-button> -->
+            <ion-button mode="ios" (click)="toggleSearch()" color="{{ showFilter ? 'light' : 'white' }}">
+                <ion-icon name="funnel-outline"></ion-icon>
+            </ion-button>
+        </ion-buttons>
+    </ion-toolbar>
+</ion-header>
+<ion-content class="ion-no-padding">
+    <ion-refresher slot="fixed" (ionRefresh)="paginate($event)">
+        <ion-refresher-content pullingText="Atualizar" refreshingSpinner="dots" refreshingText="Atualizando"></ion-refresher-content>
+    </ion-refresher>
+
+    <ion-row>
+        <ion-col class="ion-no-padding">
+            <ion-list class="no-border mb-0" lines="full" mode="ios">
+                <!-- filter -->
+                <ion-item-divider color="salamacha" mode="md" [hidden]="!showFilter">
+                    <ion-col>
+                        <ion-searchbar [(ngModel)]="filters.email" (ionChange)="paginate()" debounce="250" class="p0" mode="ios" placeholder="E-mail ..."  #search></ion-searchbar>
+                    </ion-col>
+                </ion-item-divider>
+
+                <!-- header -->
+                <ion-item-divider color="salamacha" mode="md" >
+                    <!-- <ion-col size="2" size-md="1">CÓD.</ion-col> -->
+                    <ion-col class="break">Nome<p class="m0"><small>Nome da empresa</small></p></ion-col>
+                    <ion-col>Assunto</ion-col>
+                    <ion-col>Messagem</ion-col>
+                    <ion-col class="break">Telefone<p class="m0"><small>E-mail</small></p></ion-col>
+                    <ion-col size="3" size-md="1">Data</ion-col>
+                    <ion-col size="2" size-md="1" *ifAuth="[{update: 'lead'}]"></ion-col>
+                    <ion-col size="2" size-md="1" *ifAuth="[{delete: 'lead'}]"></ion-col>
+                </ion-item-divider>
+
+                <!-- items -->
+                <ion-list>
+                    <ion-item *ngFor="let lead of leads">
+                        <!-- <ion-col size="2" size-md="1">#{{ lead.id }}</ion-col> -->
+                        <ion-col class="break">{{ lead.name }}<p class="m0"><small>{{ lead.contact_name_enterprise }}</small></p></ion-col>
+                        <ion-col>
+                            <p class="m0"><small>{{ lead.msg_subject }}</small></p>
+                        </ion-col>
+                        <ion-col>
+                            <p class="m0"><small>{{ lead.message }}</small></p>
+                        </ion-col>
+                        <!-- <ion-col class="break">{{ lead.name }}<p class="m0"><small>{{ lead.email }}</small></p></ion-col> -->
+                        <ion-col class="break">{{ lead.phone }}<p class="m0"><small>{{ lead.email }}</small></p></ion-col>
+                        <!-- <ion-col>{{ lead.landing_page_id ? lead.landing_page.title : '--' }}</ion-col> -->
+
+                        <ion-col size="3" size-md="1">{{ lead.created_at.format('DD/MM/yyyy')}}</ion-col>
+                        <ion-col size="2" size-md="1" *ifAuth="[{update: 'lead'}]" class="text-right">
+                            <ion-button [routerLink]="['/lead', lead.id]" routerDirection="forward" expand="block" color="primary" *ifAuth="[{update: 'lead'}]">
+                                <fa-icon [icon]="['fas', 'pencil-alt']"></fa-icon>
+                            </ion-button>
+                        </ion-col>
+                        <ion-col size="2" size-md="1" *ifAuth="[{delete: 'lead'}]" class="text-right">
+                            <ion-button (click)="remove(lead, $event)" expand="bl[[[]]]ock" color="danger" *ifAuth="[{delete: 'lead'}]">
+                                <ion-icon name="trash"></ion-icon>
+                            </ion-button>
+                        </ion-col>
+                    </ion-item>
+                </ion-list>
+
+                <ng-container *ngIf="loading">
+                    <div *ngFor="let tr of trs">
+                        <ion-skeleton-text animated style="width: 100%; height: 50px"></ion-skeleton-text>
+                    </div>
+                </ng-container>
+
+                <ion-infinite-scroll threshold="30px" (ionInfinite)="paginate(null, $event)">
+                    <ion-infinite-scroll-content loadingSpinner="none"></ion-infinite-scroll-content>
+                </ion-infinite-scroll>
+
+                <ion-row class="no-border" class="text-center" *ngIf="total_of_data === leads.length && total_of_data>0">
+                    <ion-col>
+                        <ion-icon [hidden]="leads.length < 10" color="medium" class="mt-15" size="large" name="chevron-up-circle-outline" float-right (click)="content.scrollToTop(500)"></ion-icon>
+                        <ion-label color="medium" class="p20">
+                            Todos os registros foram listados <ion-icon name="thumbs-up" color="medium"></ion-icon>
+                        </ion-label>
+                    </ion-col>
+                </ion-row>
+
+                <ion-row color="light" class="text-center" *ngIf="!loading && !leads.length">
+                    <ion-col>
+                        <ion-label padding-top padding-bottom>
+                            Não há registros.
+                        </ion-label>
+                    </ion-col>
+                </ion-row>
+            </ion-list>
+
+        </ion-col>
+    </ion-row>
+</ion-content>

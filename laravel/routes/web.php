@@ -1,7 +1,8 @@
 <?php
 
-use App\Http\Controllers\Site\SiteController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Site\SiteController;
+use App\Modules\Leads\Http\Controllers\LeadController;
 
 /*
 |--------------------------------------------------------------------------
@@ -18,3 +19,4 @@ Route::get('/', [SiteController::class, 'index']);
 Route::get('/produtos', [SiteController::class, 'products']);
 Route::get('/produto/{slug}/{id}', [SiteController::class, 'product']);
 Route::get('/contato', [SiteController::class, 'contact']);
+Route::post('/contato', [LeadController::class, 'store']);

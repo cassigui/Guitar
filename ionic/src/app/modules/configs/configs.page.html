@@ -3,10 +3,24 @@
         <ion-menu-button mode="ios" slot="start"></ion-menu-button>
         <ion-title>Configurações</ion-title>
     </ion-toolbar>
+    <ion-toolbar>
+        <ion-segment [(ngModel)]="selectedSegment" class="col-12" (ionChange)="onSegmentChange($event)">
+            <ion-segment-button value="sobre">
+                <ion-label>Sobre</ion-label>
+            </ion-segment-button>
+            <ion-segment-button value="contatos">
+                <ion-label>Contatos</ion-label>
+            </ion-segment-button>
+            <ion-segment-button value="outros">
+                <ion-label>Outros</ion-label>
+            </ion-segment-button>
+        </ion-segment>
+    </ion-toolbar>
 </ion-header>
 
+
 <ion-content class="ion-padding">
-    <ion-row>
+    <ion-row *ngIf="selectedSegment === 'sobre'">
         <ion-col class="ion-no-padding">
             <div>
                 <ion-card class="m0" color="white" mode="ios">
@@ -14,15 +28,15 @@
 
                         <ion-row>
                             <ion-col>
-                                <ion-label class="fw-600" color="medium">Script de título sobre a empresa</ion-label>
-                                <ion-textarea class="input-light" rows="3" [(ngModel)]="config.about_title">
+                                <ion-label class="fw-600" color="medium">Título sobre a empresa</ion-label>
+                                <ion-textarea class="input-light" rows="1" [(ngModel)]="config.about_title">
                                 </ion-textarea>
                             </ion-col>
                         </ion-row>
 
                         <ion-row>
                             <ion-col>
-                                <ion-label class="fw-600" color="medium">Script de texto sobre a empresa</ion-label>
+                                <ion-label class="fw-600" color="medium">Texto sobre a empresa</ion-label>
                                 <ion-textarea class="input-light" rows="10" [(ngModel)]="config.about_text">
                                 </ion-textarea>
                             </ion-col>
@@ -30,24 +44,78 @@
 
                         <ion-row>
                             <ion-col>
-                                <ion-label class="fw-600" color="medium">Script de Endereço</ion-label>
-                                <ion-textarea class="input-light" rows="3" [(ngModel)]="config.address">
+                                <ion-label class="fw-600" color="medium">Número de Clientes</ion-label>
+                                <ion-textarea class="input-light" rows="1" [(ngModel)]="config.num_clientes">
+                                </ion-textarea>
+                            </ion-col>
+                            <ion-col>
+                                <ion-label class="fw-600" color="medium">Número de Marcas</ion-label>
+                                <ion-textarea class="input-light" rows="1" [(ngModel)]="config.num_marcas">
+                                </ion-textarea>
+                            </ion-col>
+                            <ion-col>
+                                <ion-label class="fw-600" color="medium">Número de Funcionários</ion-label>
+                                <ion-textarea class="input-light" rows="1" [(ngModel)]="config.num_funcionarios">
                                 </ion-textarea>
                             </ion-col>
                         </ion-row>
 
+                        <ion-col size-sm="4">
+                            <ion-button (click)="save()" expand="full" shape="round" mode="ios" color="success">
+                                Salvar
+                            </ion-button>
+                        </ion-col>
+
+                    </ion-card-content>
+                </ion-card>
+            </div>
+        </ion-col>
+    </ion-row>
+
+    <ion-row *ngIf="selectedSegment === 'contatos'">
+        <ion-col class="ion-no-padding">
+            <div>
+                <ion-card class="m0" color="white" mode="ios">
+                    <ion-card-content>
+    
                         <ion-row>
                             <ion-col>
-                                <ion-label class="fw-600" color="medium">Scripts de email</ion-label>
-                                <ion-textarea class="input-light" rows="3" [(ngModel)]="config.email">
-                                </ion-textarea>
-                            </ion-col>
-                            <ion-col>
-                                <ion-label class="fw-600" color="medium">Scripts de telefone</ion-label>
-                                <ion-textarea class="input-light" rows="3" [(ngModel)]="config.phone">
+                                <ion-label class="fw-600" color="medium">Endereço</ion-label>
+                                <ion-textarea class="input-light" rows="1" [(ngModel)]="config.address">
                                 </ion-textarea>
                             </ion-col>
                         </ion-row>
+    
+                        <ion-row>
+                            <ion-col>
+                                <ion-label class="fw-600" color="medium">Email</ion-label>
+                                <ion-textarea class="input-light" rows="1" [(ngModel)]="config.email">
+                                </ion-textarea>
+                            </ion-col>
+                            <ion-col>
+                                <ion-label class="fw-600" color="medium">Telefone</ion-label>
+                                <ion-textarea class="input-light" rows="1" [(ngModel)]="config.phone">
+                                </ion-textarea>
+                            </ion-col>
+                        </ion-row>
+    
+                        <ion-col size-sm="4">
+                            <ion-button (click)="save()" expand="full" shape="round" mode="ios" color="success">
+                                Salvar
+                            </ion-button>
+                        </ion-col>
+    
+                    </ion-card-content>
+                </ion-card>
+            </div>
+        </ion-col>
+    </ion-row>
+
+    <ion-row *ngIf="selectedSegment === 'outros'">
+        <ion-col class="ion-no-padding">
+            <div>
+                <ion-card class="m0" color="white" mode="ios">
+                    <ion-card-content>
 
                         <ion-row>
                             <ion-col>

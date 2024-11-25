@@ -37,9 +37,26 @@
                         </div>
                         <div class="cr-info-content">
                             <h4 class="heading">Contato</h4>
-                            <p><a href="javascript:void(0)">(+55) 9876X-XXXX</a>
+                            <p>
+                                <a href="{{ url('https://wa.me/' . preg_replace('/\D/', '', Value::get('phone')) . '?text=Olá%20gostaria%20de%20mais%20informações!') }}"
+                                    target="_blank">
+                                    {{ Value::get('phone') }}
+                                </a>
                             </p>
-                            <p><a href="javascript:void(0)">(+55) 98764-XXXX</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-12 mb-24" data-aos="fade-up" data-aos-duration="2000" data-aos-delay="800">
+                    <div class="cr-info-box">
+                        <div class="cr-icon">
+                            <i class="ri-map-pin-line"></i>
+                        </div>
+                        <div class="cr-info-content">
+                            <h4 class="heading">Endereço</h4>
+                            <p>
+                                <a href="https://maps.app.goo.gl/U2tapu93UuiudfRj7">
+                                    {{ Value::get('address') }}
+                                </a>
                             </p>
                         </div>
                     </div>
@@ -52,25 +69,9 @@
                         </div>
                         <div class="cr-info-content">
                             <h4 class="heading">Email</h4>
-                            <p><a href="javascript:void(0)">
-                                    suporte@gmail.com</a></p>
+                            <p>
+                                <a href="mailto:{{ Value::get('email') }}">{{ Value::get('email') }}</a>
                             </p>
-                            <p><a href="javascript:void(0)">
-                                    contato@gmail.com</a></p>
-                            </p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-12 mb-24" data-aos="fade-up" data-aos-duration="2000" data-aos-delay="800">
-                    <div class="cr-info-box">
-                        <div class="cr-icon">
-                            <i class="ri-map-pin-line"></i>
-                        </div>
-                        <div class="cr-info-content">
-                            <h4 class="heading">Endereço</h4>
-                            <p><a href="javascript:void(0)">140 Ruami Moraes
-                                    Filho,
-                                    987 - Salvador - MA, 40352, Brasil.</a></p>
                         </div>
                     </div>
                 </div>
@@ -83,27 +84,38 @@
                         referrerpolicy="no-referrer-when-downgrade"></iframe>
                 </div>
                 <div class="col-md-6 col-12 mb-24" data-aos="fade-up" data-aos-duration="2000" data-aos-delay="800">
-                    <form class="cr-content-form" id="contact-form">
-                        <div class="form-group">
-                            <label for="nome" class="d-none"></label>
-                            <input id="nome" name="nome" type="text" placeholder="Nome completo"
-                                class="cr-form-control">
+                    <form id="contact_form" class="nexgen-simple-form">
+                    @csrf
+                        <div class="row form-group-margin">
+                            <div class="col-12 col-md-6 m-0 p-2 input-group">
+                                <input id="contact_name" type="text" name="name" class="form-control field-name"
+                                    placeholder="nome*" required>
+                            </div>
+                            <div class="col-12 col-md-6 m-0 p-2 input-group">
+                                <input id="contact_phone" type="tel" name="phone" class="form-control field-phone"
+                                    placeholder="telefone*" required>
+                            </div>
+                            <div class="col-12 m-0 p-2 input-group">
+                                <input id="contact_email" type="email" name="email" class="form-control field-email"
+                                    placeholder="e-mail*" required>
+                            </div>
+                            <div class="col-12 m-0 p-2 input-group">
+                                <textarea id="contact_subject" name="subject" class="form-control field-message" placeholder="assunto*" required></textarea>
+                            </div>
+                            <div class="col-12 m-0 p-2 input-group">
+                                <textarea id="contact_message" name="message" class="form-control field-message" placeholder="mensagem*" required></textarea>
+                            </div>
+                            <div class="col-12 col-12 m-0 p-2 input-group">
+                                <span id="message_error" class="form-alert hide"></span>
+                                <span id="message_success" class="form-alert text-success hide"></span>
+                            </div>
+                            <div class="col-12 input-group m-0 p-2">
+                                <button id="btn_submit_form" type="submit" class="btn btn-primary">ENVIAR</button>
+                                <button id="btn_loader_form" type="button" class="btn btn-primary hide">
+                                    Enviando &nbsp; <i class="fa fa-spinner fa-pulse"></i>
+                                </button>
+                            </div>
                         </div>
-                        <div class="form-group">
-                            <label for="email" class="d-none"></label>
-                            <input id="email" name="email" type="email" placeholder="Email" class="cr-form-control">
-                        </div>
-                        <div class="form-group">
-                            <label for="celular" class="d-none"></label>
-                            <input id="celular" name="celular" type="text" placeholder="Celular"
-                                class="cr-form-control">
-                        </div>
-                        <div class="form-group">
-                            <label for="mensagem" class="d-none"></label>
-                            <textarea id="mensagem" name="mensagem" class="cr-form-control" rows="4" placeholder="Mensagem"></textarea>
-                        </div>
-                        <button type="submit" class="cr-button" data-toggle="modal"
-                            data-target="#exampleModal">Enviar</button>
                     </form>
                 </div>
             </div>

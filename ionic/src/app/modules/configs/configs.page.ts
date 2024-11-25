@@ -9,6 +9,7 @@ import { HelperService } from 'src/app/base/helper.service';
     styleUrls: ['./configs.page.scss'],
 })
 export class ConfigsPage implements OnInit {
+    selectedSegment: string = 'sobre';
     config: any = {
         contract_threshold: null,
     };

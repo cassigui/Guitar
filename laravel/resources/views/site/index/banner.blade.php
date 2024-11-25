@@ -5,7 +5,7 @@
                 @foreach ($banners as $banner)
                     <div class="swiper-slide">
                         <div class="cr-hero-banner cr-banner-image-one"
-                            style="background-image: url('{{ asset('assets/img/banner/banner-2.jpg') }}')">
+                            style="background-image: url('{{ isset($banner->image->path_s3) ? $banner->image->path_s3 : asset('assets/img/banner/dummy.jpg') }}')">
                             <div class="container">
                                 <div class="row">
                                     <div class="col-lg-12">

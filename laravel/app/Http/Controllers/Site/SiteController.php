@@ -3,11 +3,13 @@
 namespace App\Http\Controllers\Site;
 
 use App\Modules\Seos\SeoService;
+use App\Modules\Leads\LeadService;
 use App\Http\Controllers\Controller;
 use App\Modules\Brands\BrandService;
 use App\Modules\Banners\BannerService;
 use App\Modules\Comments\CommentService;
 use App\Modules\Products\ProductService;
+use App\Modules\Leads\Http\Requests\LeadRequest;
 
 class SiteController extends Controller
 {
@@ -16,7 +18,8 @@ class SiteController extends Controller
         CommentService $comment_service,
         BannerService $banner_service,
         ProductService $product_service,
-        BrandService $brand_service
+        BrandService $brand_service,
+        LeadService $lead_service
     ) {
         setlocale(LC_TIME, 'pt_BR', 'pt_BR.utf-8', 'pt_BR.utf-8', 'portuguese');
         date_default_timezone_set('America/Sao_Paulo');
@@ -26,6 +29,7 @@ class SiteController extends Controller
         $this->banner_service = $banner_service;
         $this->product_service = $product_service;
         $this->brand_service = $brand_service;
+        $this->lead_service = $lead_service;
     }
 
     public function index()
@@ -44,7 +48,7 @@ class SiteController extends Controller
 
         $products = $this->product_service->model->take(3)->orderBy('id', 'desc')->get()->load('image');
 
-        if(isset($products)){
+        if (isset($products)) {
             foreach ($products as $product) {
                 $product->price = str_replace('.', ',', $product->price);
                 $product->promo_price = str_replace('.', ',', $product->promo_price);
@@ -78,7 +82,7 @@ class SiteController extends Controller
 
         $products = $this->product_service->model->get()->load('brand');
 
-         if(isset($products)){
+        if (isset($products)) {
             foreach ($products as $product) {
                 $product->price = str_replace('.', ',', $product->price);
                 $product->promo_price = str_replace('.', ',', $product->promo_price);
@@ -92,24 +96,35 @@ class SiteController extends Controller
 
     public function product($slug, $id)
     {
-   
+
         $seo = $this->seo_service->model
             ->where('slug', 'index')
             ->first()
             ->load('image');
-    
 
         $product = $this->product_service->model
             ->where('slug', $slug)
             ->where('id', $id)
             ->with('images')
-            ->firstOrFail(); 
-            $product->price = str_replace('.', ',', $product->price);
-            $product->promo_price = str_replace('.', ',', $product->promo_price);
-         
-        // dd($product->toArray());    
-    
+            ->firstOrFail();
+        $product->price = str_replace('.', ',', $product->price);
+        $product->promo_price = str_replace('.', ',', $product->promo_price);
+
+        // dd($product->toArray());
+
         return view('site.product.index', compact('seo', 'product'));
     }
 
+    public function store(LeadRequest $request)
+    {
+        return response()->json([
+            'error' => false,
+            'message' => __('wf.leads::toasts.store'),
+            'lead' => $this->lead_service->store($request->toArray()),
+            'name' => 'required',
+            'email' => 'required',
+            'phone' => 'required',
+            'subject' => 'required'
+        ]);
+    }
 }

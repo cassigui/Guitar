@@ -18,6 +18,7 @@
     <link rel="canonical" href="{{ Request::url() }}" />
     <meta itemprop="image" content="@yield('meta_image')">
     <meta property="og:image" content="@yield('meta_image')">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <!-- Favicon -->
 

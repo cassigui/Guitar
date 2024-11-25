@@ -82,7 +82,7 @@
                     <ion-row>
 
                         <ion-col size="12" *ngIf="!product.image.path && !product.image.base64">
-                            <ion-label class="fw-600" color="medium">Selecione uma imagem (700x700)</ion-label>
+                            <ion-label class="fw-600" color="medium">Selecione uma imagem (600x600)</ion-label>
                             <input type="file" class="bg-light" (change)="fileChangeEvent($event)" />
                         </ion-col>
 
@@ -94,7 +94,7 @@
                         <ion-col size="7">
                             <div *ngIf="imageChangedEvent && imageChangedEvent.isTrusted == true">
                                 <image-cropper [imageChangedEvent]="imageChangedEvent" [maintainAspectRatio]="true"
-                                    [aspectRatio]="0.88" format="jpg" [resizeToWidth]="550" [resizeToHeight]="620"
+                                    [aspectRatio]="1" format="jpg" [resizeToWidth]="600" [resizeToHeight]="600"
                                     (imageCropped)="imageCropped($event)" (imageLoaded)="imageLoaded()"
                                     (cropperReady)="cropperReady()"
                                     (loadImageFailed)="loadImageFailed()"></image-cropper>

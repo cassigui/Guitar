@@ -35,6 +35,8 @@
                             </div>
                         </div>
                     </div>
+
+                    
                     <div class="row col-50 mb-minus-24">
 
                         @foreach ($products as $product)
@@ -42,21 +44,31 @@
                                 <div class="cr-product-card">
                                     <div class="cr-product-image">
                                         <div class="cr-image-inner zoom-image-hover">
-                                            <img src="{{ $product->image->path_s3 }}" alt="{{ $product->name }}">
+                                            <img src="{{ isset($product->image) ? $product->image->path_s3 : asset('assets/img/product/dummy.jpg') }}"
+                                                alt="{{ $product->name }}">
                                         </div>
                                     </div>
                                     <div class="cr-product-details">
-                                        <div class="row justify-content-center">
+
+                                        <div class="row categorias-align">
                                             @foreach ($product->categories as $category)
-                                                <div class="cr-brand col-3 text-center p-1 mb-2">
-                                                    <a class="mt-auto mb-auto text-white">{{ $category->name }}</a>
+                                                <div class="categorias col-10 col-md-5">
+                                                    <a class="m-auto text-white">{{ $category->name }}</a>
                                                 </div>
                                             @endforeach
                                         </div>
-                                        <a href="produto/{{$product->slug}}/{{$product->id}}" class="title">{{ $product->name }}</a>
+                                        <a href="produto/{{ $product->slug }}/{{ $product->id }}"
+                                            class="title">{{ $product->name }}</a>
                                         <p>{{ $product->description }}</p>
-                                        <p class="cr-price"><span class="new-price">R${{ $product->price }}</span> <span
-                                                class="old-price">R${{ $product->promo_price }}</span></p>
+                                        @if (isset($product->promo_price) && $product->promo_price > 0)
+                                            <p class="cr-price"><span
+                                                    class="new-price">R${{ $product->promo_price }}</span>
+                                                <span class="old-price">R${{ $product->price }}</span>
+                                            </p>
+                                        @else
+                                            <p class="cr-price"><span class="new-price">R${{ $product->price }}</span>
+                                            </p>
+                                        @endif
                                     </div>
                                 </div>
                             </div>
